@@ -56,6 +56,8 @@ console.log(this.loginForm.value)
         (response) => {
             this.loading = false;
             this.authService.setToken(response.data.token);
+            this.authService.setUserModulos(response.data.modulos);
+            localStorage.setItem('modulos', JSON.stringify(response.data.modulos));
             this.router.navigate(['/dashboard']);
             console.log(response)
           },

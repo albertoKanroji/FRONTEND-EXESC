@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
     {
         const isAuthenticated = this.authService.isAuthenticated();
+        const profile = this.authService.getUserProfile();
         if (isAuthenticated) {
             // Evitar redirigir al dashboard si ya está en una ruta protegida
             if (state.url.startsWith('/auth')) {
@@ -29,5 +30,6 @@ export class AuthGuard implements CanActivate {
             }
             return false;
           }
+
   }
 }

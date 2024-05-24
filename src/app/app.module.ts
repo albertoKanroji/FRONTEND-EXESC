@@ -13,16 +13,19 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/login/auth/auth-interceptor.service';
+import {ErrorComponent} from "./demo/components/auth/error/error.component";
+import {AuthRoleGuard} from "./guards/role/auth-role.guard";
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [AppRoutingModule, AppLayoutModule],
     providers: [
-        { provide: LocationStrategy,
-             useClass: PathLocationStrategy },
+        {   provide: LocationStrategy,
+            useClass: PathLocationStrategy
+        },
              { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService,AuthRoleGuard
     ],
     bootstrap: [AppComponent],
 })
