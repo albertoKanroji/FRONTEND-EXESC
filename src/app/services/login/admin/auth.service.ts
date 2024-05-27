@@ -72,5 +72,6 @@ export class AuthService {
         localStorage.removeItem('modulos');
         this.userProfile = null;
         this.userModulos = null;
+        this.router.navigate(['/auth/login']);
     }
 }

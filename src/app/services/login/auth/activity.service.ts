@@ -8,7 +8,7 @@ import { AuthService } from '../admin/auth.service';
 export class ActivityService {
 
     private timeoutId: any;
-    private timeoutDuration = 2 * 60 * 1000; // 30 minutos
+    private timeoutDuration = 30 * 60 * 1000; // 30 minutos
 
     constructor(private router: Router, private authService: AuthService) {
       this.startMonitoring();

@@ -1,0 +1,182 @@
+<div class="col-12">
+    <div class="card">
+        <h5>Periodos</h5>
+        <p-table
+            #dt1
+            [value]="actividades"
+            dataKey="id"
+            [rows]="5"
+            [loading]="loading"
+            [rowHover]="true"
+            styleClass="p-datatable-gridlines"
+            [paginator]="true"
+            [globalFilterFields]="[
+                'period',
+                'start_period',
+                'end_period',
+                'registration_start',
+                'registration_end',
+                'selectiv_start',
+                'selectiv_end',
+                'status'
+            ]"
+            responsiveLayout="scroll"
+            [rowsPerPageOptions]="[5, 10, 20]"
+        >
+            <ng-template pTemplate="caption">
+                <div
+                    class="flex justify-content-between flex-column sm:flex-row"
+                >
+                    <button
+                        pButton
+                        label="Clear"
+                        class="p-button-outlined mb-2"
+                        icon="pi pi-filter-slash"
+                        (click)="clear(dt1)"
+                    ></button>
+                    <span class="p-input-icon-left mb-2">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            #filter
+                            (input)="onGlobalFilter(dt1, $event)"
+                            placeholder="Search Keyword"
+                            class="w-full"
+                        />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Periodo
+                            <p-columnFilter
+                                type="text"
+                                field="period"
+                                display="menu"
+                                placeholder="Search by period"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Inicio del Periodo
+                            <p-columnFilter
+                                type="text"
+                                field="start_period"
+                                display="menu"
+                                placeholder="Search by start period"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Fin del Periodo
+                            <p-columnFilter
+                                type="text"
+                                field="end_period"
+                                display="menu"
+                                placeholder="Search by end period"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Inicio de Inscripciones
+                            <p-columnFilter
+                                type="text"
+                                field="registration_start"
+                                display="menu"
+                                placeholder="Search by registration start"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Fin de Inscripciones
+                            <p-columnFilter
+                                type="text"
+                                field="registration_end"
+                                display="menu"
+                                placeholder="Search by registration end"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Inicio de Selectividad
+                            <p-columnFilter
+                                type="text"
+                                field="selectiv_start"
+                                display="menu"
+                                placeholder="Search by selectiv start"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Fin de Selectividad
+                            <p-columnFilter
+                                type="text"
+                                field="selectiv_end"
+                                display="menu"
+                                placeholder="Search by selectiv end"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 12rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Estatus
+                            <p-columnFilter
+                                type="text"
+                                field="status"
+                                display="menu"
+                                placeholder="Search by status"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-periodo>
+                <tr>
+                    <td>{{ periodo.period }}</td>
+                    <td>{{ periodo.start_period }}</td>
+                    <td>{{ periodo.end_period }}</td>
+                    <td>{{ periodo.registration_start }}</td>
+                    <td>{{ periodo.registration_end }}</td>
+                    <td>{{ periodo.selectiv_start }}</td>
+                    <td>{{ periodo.selectiv_end }}</td>
+                    <td>{{ periodo.status == 1 ? "Activo" : "Inactivo" }}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No periods found.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="8">Loading periods data. Please wait.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

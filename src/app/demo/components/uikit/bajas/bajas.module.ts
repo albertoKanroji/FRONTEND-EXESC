@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActividadesRoutingModule } from './actividades-routing.module';
-import { ActividadesComponent } from './actividades.component';
+import { BajasRoutingModule } from './bajas-routing.module';
+import { BajasComponent } from './bajas.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -11,13 +11,13 @@ import { TableModule } from 'primeng/table';
 @NgModule({
 	imports: [
 		CommonModule,
-		ActividadesRoutingModule,
+		BajasRoutingModule,
 		ButtonModule,
 		RippleModule,
 		SplitButtonModule,
 		ToggleButtonModule,
         TableModule,
 	],
-	declarations: [ActividadesComponent]
+	declarations: [BajasComponent]
 })
-export class ActividadesModule { }
+export class BajasModule { }
