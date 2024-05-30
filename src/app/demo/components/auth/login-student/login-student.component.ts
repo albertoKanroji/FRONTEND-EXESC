@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../services/login/admin/auth.service";
 import {Router} from "@angular/router";
 import {AuthStudentService} from "../../../../services/login/student/auth-student.service";
-
+import { emailDomainValidator } from './email-domain.validator';
 @Component({
   selector: 'app-login-student',
 
@@ -38,7 +38,7 @@ export class LoginStudentComponent {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, Validators.email, emailDomainValidator('lcardenas.tecnm.mx')]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             rememberMe: [false]
         });
@@ -58,6 +58,7 @@ export class LoginStudentComponent {
             (response) => {
                 this.loading = false;
                 this.authService.setToken(response.data.token);
+                this.authService.setIdStudent(response.data.cliente.id.toString());
                 this.authService.setUserModulos(response.data.modulos);
                 localStorage.setItem('modulos', JSON.stringify(response.data.modulos));
 

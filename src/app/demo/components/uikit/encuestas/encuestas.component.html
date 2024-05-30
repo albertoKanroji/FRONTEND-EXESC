@@ -1,1 +1,92 @@
-<p>encuestas works!</p>
+<div class="col-12">
+    <div class="card">
+        <h5>ENCUESTAS ALUMNOS</h5>
+        <form [formGroup]="studentForm" class="grid">
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="periodos"
+                    formControlName="period_id"
+                    placeholder="Selecciona un periodo"
+                ></p-dropdown>
+            </div>
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="maestros"
+                    formControlName="teacher_id"
+                    placeholder="Selecciona un maestro"
+                    (ngModelChange)="loadGrupos()"
+                ></p-dropdown>
+            </div>
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="grupos"
+                    formControlName="group_id"
+                    placeholder="Selecciona un grupo"
+                    (ngModelChange)="loadALumnos()"
+                ></p-dropdown>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-12" *ngIf="alumnos.length > 0">
+    <div class="card">
+        <h5>Alumnos</h5>
+        <p-table
+            [value]="alumnos"
+            dataKey="id"
+            [rows]="5"
+            [loading]="loading"
+            [rowHover]="true"
+            styleClass="p-datatable-gridlines"
+            [paginator]="true"
+            [globalFilterFields]="[]"
+            responsiveLayout="scroll"
+            [rowsPerPageOptions]="[5, 10, 20]"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width: 12rem">Nombre completo</th>
+                    <th style="min-width: 14rem">Actividad</th>
+                    <th style="min-width: 14rem">Acciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-alumno>
+                <tr>
+                    <td>
+                        #{{ alumno.control_number }} - {{ alumno.name }}
+                        {{ alumno.last_name }}
+                        {{ alumno.mother_last_name }}
+                    </td>
+                    <td>{{ alumno.group_name }}</td>
+                    <td>
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            label="Ver"
+                            (click)="verDetalles(alumno)"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="4">No se encontraron alumnos.</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+                <tr>
+                    <td colspan="4">Cargando datos. Por favor espera.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div class="col-12" *ngIf="alumnos.length === 0 && !loading">
+    <div class="card">
+        <h5>Alumnos</h5>
+        <p>No se encontraron resultados.</p>
+    </div>
+</div>

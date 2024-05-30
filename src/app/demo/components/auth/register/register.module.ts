@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { AlumnosComponent } from './alumnos.component';
+import { RegisterRoutingModule } from './register-routing.module';
+import { RegisterComponent } from './register.component';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { InputTextModule } from 'primeng/inputtext';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DropdownModule } from 'primeng/dropdown';
-import { FileUploadModule } from 'primeng/fileupload';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -30,22 +28,14 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { ReactiveFormsModule } from '@angular/forms';  // Importar ReactiveFormsModule
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { FileUploadModule } from 'primeng/fileupload';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 @NgModule({
-	imports: [
-        ReactiveFormsModule,
+    imports: [
         CommonModule,
         FormsModule,
-		CommonModule,
-		AlumnosRoutingModule,
-		ButtonModule,
-		RippleModule,
-		SplitButtonModule,
-		ToggleButtonModule,
-        TableModule,
+        RegisterRoutingModule,
         AutoCompleteModule,
         CalendarModule,
         ChipsModule,
@@ -71,7 +61,7 @@ import { FormsModule } from '@angular/forms';
         ButtonModule,
         InputGroupModule,
         InputGroupAddonModule
-	],
-	declarations: [AlumnosComponent]
+    ],
+    declarations: [RegisterComponent]
 })
-export class AlumnosModule { }
+export class RegisterModule { }

@@ -1,1 +1,95 @@
-<p>boletas works!</p>
+<div class="col-12">
+    <div class="card">
+        <h5>BOLETAS</h5>
+        <form [formGroup]="studentForm" class="grid">
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="periodos"
+                    formControlName="periodoId"
+                    placeholder="Selecciona un periodo"
+                    (ngModelChange)="loadOpcion()"
+                ></p-dropdown>
+            </div>
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="opciones"
+                    formControlName="filterId"
+                    placeholder="Selecciona el tipo"
+                    (ngModelChange)="loadFiltro()"
+                ></p-dropdown>
+            </div>
+            <div class="col-4 md:col-4">
+                <p-dropdown
+                    [options]="grupos"
+                    formControlName="opcion"
+                    placeholder="Selecciona una opcion"
+                    (ngModelChange)="loadALumnos()"
+                ></p-dropdown>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-12" *ngIf="alumnos.length > 0">
+    <div class="card">
+        <h5>Alumnos</h5>
+        <div *ngFor="let career of alumnos">
+            <h6>Carrera: {{ career.career }}</h6>
+            <p-table
+                [value]="career.students"
+                dataKey="id"
+                [rows]="5"
+                [loading]="loading"
+                [rowHover]="true"
+                styleClass="p-datatable-gridlines"
+                [paginator]="true"
+                responsiveLayout="scroll"
+                [rowsPerPageOptions]="[5, 10, 20]"
+            >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="min-width: 12rem">Nombre</th>
+                        <th style="min-width: 14rem">Semestre</th>
+
+                        <th style="min-width: 14rem">Documento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-student>
+                    <tr>
+                        <td>
+                            #{{ student.control_number }} - {{ student.name }}
+                            {{ student.last_name }}
+                            {{ student.mother_last_name }}
+                        </td>
+                        <td>{{ student.semester }}</td>
+                        <td>
+                            <button
+                                pButton
+                                pRipple
+                                type="button"
+                                label="Ver"
+                                (click)="verDetalles(alumno)"
+                            ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4">No se encontraron alumnos.</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="4">Cargando datos. Por favor espera.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+<div class="col-12" *ngIf="alumnos.length === 0 && !loading">
+    <div class="card">
+        <h5>Alumnos</h5>
+        <p>No se encontraron resultados.</p>
+    </div>
+</div>

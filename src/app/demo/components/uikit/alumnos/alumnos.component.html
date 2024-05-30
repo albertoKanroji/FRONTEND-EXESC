@@ -1,1 +1,131 @@
-<p>alumnos works!</p>
+<div class="col-12">
+    <div class="card">
+        <h5>Datos</h5>
+        <form [formGroup]="studentForm" class="grid">
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Username"
+                        formControlName="username"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="password"
+                        placeholder="Password"
+                        formControlName="password"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Nombre (s)"
+                        formControlName="name"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Apellido Paterno"
+                        formControlName="last_name"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Apellido Materno"
+                        formControlName="mother_last_name"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="email"
+                        placeholder="Correo"
+                        formControlName="email"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="number"
+                        placeholder="Numero de Control"
+                        formControlName="control_number"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <p-checkbox
+                            formControlName="status"
+                            [binary]="true"
+                        ></p-checkbox>
+                    </p-inputGroupAddon>
+                    <input
+                        type="text"
+                        pInputText
+                        placeholder="Profile"
+                        formControlName="profile"
+                    />
+                </p-inputGroup>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-dropdown
+                    [options]="cities"
+                    formControlName="careers_id"
+                    placeholder="Selecciona tu Carrera"
+                ></p-dropdown>
+            </div>
+            <div class="col-12 md:col-6">
+                <p-fileUpload
+                    mode="basic"
+                    name="demo[]"
+                    url="./upload.php"
+                    accept="image/*"
+                    [maxFileSize]="1000000"
+                    (onUpload)="onBasicUpload()"
+                ></p-fileUpload>
+            </div>
+        </form>
+    </div>
+</div>

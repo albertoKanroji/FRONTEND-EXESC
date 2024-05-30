@@ -7,17 +7,21 @@ import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		BoletasRoutingModule,
-		ButtonModule,
-		RippleModule,
-		SplitButtonModule,
-		ToggleButtonModule,
+    imports: [
+        DropdownModule,
+        ReactiveFormsModule,
+        CommonModule,
+        BoletasRoutingModule,
+        ButtonModule,
+        RippleModule,
+        SplitButtonModule,
+        ToggleButtonModule,
         TableModule,
-	],
-	declarations: [BoletasComponent]
+    ],
+    declarations: [BoletasComponent],
 })
-export class BoletasModule { }
+export class BoletasModule {}

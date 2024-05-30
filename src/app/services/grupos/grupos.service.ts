@@ -5,12 +5,15 @@ import { Actividad } from 'src/app/interfaces/actividades';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class GruposService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getGroups(): Observable<any> {
-      return this.http.get<any>(`${environment.apiUrl}/groups/`);
+        return this.http.get<any>(`${environment.apiUrl}/groups/`);
+    }
+    getCarreras(): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/careers/`);
     }
 }

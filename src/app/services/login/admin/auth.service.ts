@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
     private profile: string;
     private token: string | null = null;
+    private id: number;
     private userProfile: string;
     private isAuthenticatedFlag = false;
     private userModulos: any[];
@@ -36,6 +37,12 @@ export class AuthService {
       this.token = token;
       localStorage.setItem('token', token);
     }
+    setIdStudent(id: string): void {
+        const idAsNumber = parseInt(id, 10);
+        this.id = idAsNumber;
+        localStorage.setItem('id', idAsNumber.toString());
+    }
+
 
     getToken(): string | null {
       if (!this.token) {
