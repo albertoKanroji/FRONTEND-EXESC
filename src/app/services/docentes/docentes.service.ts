@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class DocentesService {
-
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getDocentes(): Observable<any> {
-      return this.http.get<any>(`${environment.apiUrl}/teachers/`);
+        return this.http.get<any>(`${environment.apiUrl}/teachers/`);
+    }
+    getDocentesId(): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/teachers/`);
     }
 }
