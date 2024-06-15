@@ -21,6 +21,23 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             {
+                path: 'actividades/new',
+                data: { breadcrumb: 'actividades' },
+                loadChildren: () =>
+                    import(
+                        './actividades/form-actividades/form-actividades.module'
+                    ).then((m) => m.FormActividadesModule),
+            },
+            {
+                path: 'actividades/new/:id',
+                data: { breadcrumb: 'actividades' },
+                loadChildren: () =>
+                    import(
+                        './actividades/form-actividades/form-actividades.module'
+                    ).then((m) => m.FormActividadesModule),
+            },
+
+            {
                 path: 'alumnos',
                 data: { breadcrumb: 'alumnos' },
                 loadChildren: () =>
@@ -138,7 +155,14 @@ import { RouterModule } from '@angular/router';
             },
 
             // { path: 'charts', data: { breadcrumb: 'Charts' }, loadChildren: () => import('./charts/chartsdemo.module').then(m => m.ChartsDemoModule) },
-            //  { path: 'file', data: { breadcrumb: 'File' }, loadChildren: () => import('./file/filedemo.module').then(m => m.FileDemoModule) },
+            {
+                path: 'file',
+                data: { breadcrumb: 'File' },
+                loadChildren: () =>
+                    import('./file/filedemo.module').then(
+                        (m) => m.FileDemoModule
+                    ),
+            },
             // { path: 'floatlabel', data: { breadcrumb: 'Float Label' }, loadChildren: () => import('./floatlabel/floatlabeldemo.module').then(m => m.FloatlabelDemoModule) },
             // { path: 'formlayout', data: { breadcrumb: 'Form Layout' }, loadChildren: () => import('./formlayout/formlayoutdemo.module').then(m => m.FormLayoutDemoModule) },
             //  { path: 'input', data: { breadcrumb: 'Input' }, loadChildren: () => import('./input/inputdemo.module').then(m => m.InputDemoModule) },
