@@ -7,6 +7,7 @@ import { DocentesService } from 'src/app/services/docentes/docentes.service';
 import { EvaluacionesService } from 'src/app/services/evaluaciones/evaluaciones.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
 import { PeriodosService } from 'src/app/services/periodos/periodos.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'app-boletas',
@@ -110,16 +111,19 @@ export class BoletasComponent {
         });
     }
     loadCarreras() {
+        this.loading = true;
         this.gruposService.getCarreras().subscribe({
             next: (response) => {
                 console.log('Carreras response:', response);
                 const data = response.data;
                 if (Array.isArray(data)) {
+                    this.loading = false;
                     this.grupos = data.map((grupo: any) => ({
                         label: grupo.name, // Asegúrate de tener el campo correcto para el nombre del grupo
                         value: { id: grupo.id, name: grupo.name },
                     }));
                 } else {
+                    this.loading = false;
                     console.error(
                         'La respuesta de grupos no es un arreglo',
                         data
@@ -189,5 +193,23 @@ export class BoletasComponent {
 
     clear(table: any) {
         table.clear();
+    }
+    obtenerInforme(id: number) {
+        this.loading = true;
+        console.log('Buscar informe para el grupo con ID:', id);
+        this.envioDatosService.generatePdfBoletas(id).subscribe({
+            next: (data: Blob) => {
+                const file = new File([data], 'boleta.pdf', {
+                    type: 'application/pdf',
+                });
+                this.loading = false;
+                FileSaver.saveAs(file, 'groups.pdf'); // Trigger browser "Save As" dialog
+            },
+            error: (error) => {
+                this.loading = false;
+                console.error('Error al obtener el informe en PDF:', error);
+                // Handle errors appropriately, e.g., display an error message to the user
+            },
+        });
     }
 }

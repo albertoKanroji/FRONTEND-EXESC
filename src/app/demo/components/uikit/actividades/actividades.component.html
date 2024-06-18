@@ -1,6 +1,7 @@
 <div class="col-12">
     <div class="card">
         <h5>Actividades</h5>
+
         <p-table
             #dt1
             [value]="actividades"
@@ -20,11 +21,12 @@
                 >
                     <button
                         pButton
-                        label="Clear"
+                        label="Nueva Actividad"
                         class="p-button-outlined mb-2"
-                        icon="pi pi-filter-slash"
-                        (click)="clear(dt1)"
+                        icon="pi pi-plus-circle"
+                        [routerLink]="['/modules/actividades/new']"
                     ></button>
+
                     <span class="p-input-icon-left mb-2">
                         <i class="pi pi-search"></i>
                         <input
@@ -79,6 +81,32 @@
                             ></p-columnFilter>
                         </div>
                     </th>
+                    <th style="min-width: 14rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Imagen
+                            <p-columnFilter
+                                type="text"
+                                field="code"
+                                display="menu"
+                                placeholder="Search by code"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
+                    <th style="min-width: 14rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Acciones
+                            <p-columnFilter
+                                type="text"
+                                field="code"
+                                display="menu"
+                                placeholder="Search by code"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-actividad>
@@ -91,6 +119,26 @@
                     </td>
                     <td>
                         {{ actividad.code }}
+                    </td>
+                    <td>
+                        <!-- Renderizar la imagen en base64 -->
+                        <img
+                            [src]="actividad.image"
+                            alt="{{ actividad.name }}"
+                            style="max-width: 100px; max-height: 100px"
+                        />
+                    </td>
+                    <td>
+                        <button
+                            pButton
+                            label="Editar"
+                            class="p-button-outlined mb-2"
+                            icon="pi pi-pencil"
+                            [routerLink]="[
+                                '/modules/actividades/new/',
+                                actividad.id
+                            ]"
+                        ></button>
                     </td>
                 </tr>
             </ng-template>

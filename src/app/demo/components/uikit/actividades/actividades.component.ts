@@ -7,43 +7,52 @@ import { ProductService } from 'src/app/demo/service/product.service';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Actividad } from 'src/app/interfaces/actividades';
+import { Router } from '@angular/router';
 interface expandedRows {
     [key: string]: boolean;
 }
 
 @Component({
-  selector: 'app-actividades',
+    selector: 'app-actividades',
 
-
-  templateUrl: './actividades.component.html',
-  styleUrl: './actividades.component.scss'
+    templateUrl: './actividades.component.html',
+    styleUrl: './actividades.component.scss',
 })
-export class ActividadesComponent implements OnInit{
+export class ActividadesComponent implements OnInit {
     actividades: Actividad[] = [];
     loading: boolean = true;
     @ViewChild('filter') filter!: ElementRef;
-    constructor(private actividadesService: ActividadesService) { }
+    constructor(
+        private actividadesService: ActividadesService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
-      this.actividadesService.getActividades().subscribe(
-        (data: any) => {
-          if (data.success) {
-            this.actividades = data.data;
-            console.log('Actividades:', this.actividades);
-          }
-          this.loading = false;
-        },
-        (error) => {
-          console.error('Error al obtener las actividades:', error);
-          this.loading = false;
-        }
-      );
+        this.actividadesService.getActividades().subscribe(
+            (data: any) => {
+                if (data.success) {
+                    this.actividades = data.data;
+                    console.log('Actividades:', this.actividades);
+                }
+                this.loading = false;
+            },
+            (error) => {
+                console.error('Error al obtener las actividades:', error);
+                this.loading = false;
+            }
+        );
     }
     onGlobalFilter(table: any, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-      }
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
+    }
 
-      clear(table: any) {
+    clear(table: any) {
         table.clear();
-      }
+    }
+    navigateToForm(): void {
+        this.router.navigate(['modules/actividades/actividades-form']);
+    }
 }
