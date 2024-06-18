@@ -9,10 +9,12 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
     imports: [
         DropdownModule,
+        NgxLoadingModule.forRoot({}),
         ReactiveFormsModule,
         CommonModule,
         BoletasRoutingModule,

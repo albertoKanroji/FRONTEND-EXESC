@@ -9,20 +9,22 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
-	imports: [
+    imports: [
         DropdownModule,
+        NgxLoadingModule.forRoot({}),
         ReactiveFormsModule,
         CommonModule,
-		CommonModule,
-		EvaluacionesRoutingModule,
-		ButtonModule,
-		RippleModule,
-		SplitButtonModule,
-		ToggleButtonModule,
+        CommonModule,
+        EvaluacionesRoutingModule,
+        ButtonModule,
+        RippleModule,
+        SplitButtonModule,
+        ToggleButtonModule,
         TableModule,
-	],
-	declarations: [EvaluacionesComponent]
+    ],
+    declarations: [EvaluacionesComponent],
 })
-export class EvaluacionesModule { }
+export class EvaluacionesModule {}

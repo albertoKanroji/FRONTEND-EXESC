@@ -28,7 +28,10 @@
         </form>
     </div>
 </div>
-
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
 <div class="col-12" *ngIf="grupos.length > 0">
     <div class="card">
         <h5>Grupos</h5>
@@ -60,18 +63,18 @@
                 <tr>
                     <td>{{ grupo.activity.code }}</td>
                     <td>{{ grupo.activity.name }}</td>
-
                     <td>
                         <button
                             pButton
                             pRipple
                             type="button"
-                            label="Buscar"
-                            (click)="buscar()"
+                            label="Informe"
+                            (click)="obtenerInforme(grupo.id)"
                         ></button>
                     </td>
                 </tr>
             </ng-template>
+
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="6">No se encontraron grupos.</td>
