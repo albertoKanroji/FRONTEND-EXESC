@@ -9,7 +9,7 @@ import { GruposService } from 'src/app/services/grupos/grupos.service';
   styleUrl: './grupos.component.scss'
 })
 export class GruposComponent {
-    actividades: Actividad[] = [];
+    actividades: any[] = [];
     loading: boolean = true;
     @ViewChild('filter') filter!: ElementRef;
     constructor(private actividadesService: GruposService) { }

@@ -130,6 +130,14 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             {
+                path: 'test',
+                data: { breadcrumb: 'alumno' },
+                loadChildren: () =>
+                    import('./test-component/test-component.module').then(
+                        (m) => m.TestModule
+                    ),
+            },
+            {
                 path: 'alumno/datos',
                 data: { breadcrumb: 'datos-alumno' },
                 loadChildren: () =>

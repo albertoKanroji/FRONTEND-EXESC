@@ -101,7 +101,7 @@ export class EvaluacionesComponent implements OnInit {
                     type: 'application/pdf',
                 });
                 this.loading = false;
-                FileSaver.saveAs(file, 'students.pdf'); // Trigger browser "Save As" dialog
+                //FileSaver.saveAs(file, 'students.pdf'); // Trigger browser "Save As" dialog
             },
             error: (error) => {
                 this.loading = false;
