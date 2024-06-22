@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HorarioStudentRoutingModule } from './horario-student-routing.module';
-import { HorarioStudentComponent } from './horario-student.component';
+import { GruposStudentRoutingModule } from './grupos-student-routing.module';
+import { GruposStudentComponent } from './grupos-student.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
-import { NgxLoadingModule } from 'ngx-loading';
-
+import { CardModule } from 'primeng/card';
 @NgModule({
     imports: [
-        NgxLoadingModule.forRoot({}),
         CommonModule,
-        HorarioStudentRoutingModule,
+        GruposStudentRoutingModule,
         ButtonModule,
+        CardModule,
         RippleModule,
         SplitButtonModule,
         ToggleButtonModule,
         TableModule,
     ],
-    declarations: [HorarioStudentComponent],
+    bootstrap: [GruposStudentComponent],
+    declarations: [GruposStudentComponent],
 })
-export class HorarioStudentModule {}
+export class GruposStudentModule {}

@@ -1,21 +1,20 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Actividad } from 'src/app/interfaces/actividades';
+import { ActividadesService } from 'src/app/services/actividades/actividades.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
 
 @Component({
-    selector: 'app-grupos',
+    selector: 'app-grupos-student',
 
-    templateUrl: './grupos.component.html',
-    styleUrl: './grupos.component.scss',
+    templateUrl: './grupos-student.component.html',
+    styleUrl: './grupos-student.component.scss',
 })
-export class GruposComponent {
+export class GruposStudentComponent {
     actividades: Actividad[] = [];
     loading: boolean = true;
-    @ViewChild('filter') filter!: ElementRef;
-    constructor(private actividadesService: GruposService) {}
-
+    constructor(private actividadesService: ActividadesService) {}
     ngOnInit(): void {
-        this.actividadesService.getGroups().subscribe(
+        this.actividadesService.getActividades().subscribe(
             (data: any) => {
                 if (data.success) {
                     this.actividades = data.data;
@@ -28,15 +27,5 @@ export class GruposComponent {
                 this.loading = false;
             }
         );
-    }
-    onGlobalFilter(table: any, event: Event) {
-        table.filterGlobal(
-            (event.target as HTMLInputElement).value,
-            'contains'
-        );
-    }
-
-    clear(table: any) {
-        table.clear();
     }
 }

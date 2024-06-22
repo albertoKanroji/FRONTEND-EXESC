@@ -2,7 +2,14 @@
     <h2>{{ group.activity_name }}</h2>
     <div class="group-info">
         <p><strong>Lugar:</strong> {{ group.location }}</p>
-        <p><strong>Maestro:</strong> {{ group.teacher }}</p>
+
+        <button
+            pButton
+            label="Descargar Lista"
+            class="p-button-outlined mb-2"
+            icon="pi pi-cloud-download"
+            (click)="downloadStudentList(group.id)"
+        ></button>
     </div>
     <table>
         <tr>
@@ -17,6 +24,7 @@
         </tr>
     </table>
 </div>
+
 <ngx-loading
     [show]="loading"
     [config]="{ backdropBorderRadius: '3px' }"

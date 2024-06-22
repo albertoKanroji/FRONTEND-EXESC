@@ -1,0 +1,46 @@
+.encuestas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .encuesta-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+
+  .encuesta-card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+  }
+
+  .encuesta-card p {
+    margin: 0 0 10px;
+    font-size: 1em;
+    color: #555;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .responder-btn {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .recordar-btn {
+    background-color: #28a745;
+    color: white;
+  }

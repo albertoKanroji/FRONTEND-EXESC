@@ -1,0 +1,27 @@
+<div class="p-grid p-nogutter p-justify-center">
+    <div *ngIf="loading" class="p-col-12">
+        <p>Loading...</p>
+    </div>
+    <div *ngIf="!loading && actividades.length === 0" class="p-col-12">
+        <p>No activities found.</p>
+    </div>
+    <div
+        *ngFor="let actividad of actividades"
+        class="p-col-12 p-md-6 p-lg-4 p-d-flex p-jc-center"
+    >
+        <p-card
+            header="{{ actividad.name }}"
+            subheader="{{ actividad.code }}"
+            styleClass="custom-card"
+        >
+            <ng-template pTemplate="content">
+                <img
+                    [src]="actividad.image"
+                    alt="{{ actividad.name }}"
+                    class="activity-image"
+                />
+                <p>{{ actividad.type_of_activity.name }}</p>
+            </ng-template>
+        </p-card>
+    </div>
+</div>

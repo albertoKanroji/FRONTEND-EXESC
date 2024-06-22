@@ -20,10 +20,10 @@
                 >
                     <button
                         pButton
-                        label="Clear"
+                        label="Nuevo Grupo"
                         class="p-button-outlined mb-2"
-                        icon="pi pi-filter-slash"
-                        (click)="clear(dt1)"
+                        icon="pi pi-plus-circle"
+                        [routerLink]="['/modules/grupos/new']"
                     ></button>
                     <span class="p-input-icon-left mb-2">
                         <i class="pi pi-search"></i>

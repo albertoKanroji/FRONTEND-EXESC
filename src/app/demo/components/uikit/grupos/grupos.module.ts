@@ -9,15 +9,15 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		GruposRoutingModule,
-		ButtonModule,
-		RippleModule,
-		SplitButtonModule,
-		ToggleButtonModule,
+    imports: [
+        CommonModule,
+        GruposRoutingModule,
+        ButtonModule,
+        RippleModule,
+        SplitButtonModule,
+        ToggleButtonModule,
         TableModule,
-	],
-	declarations: [GruposComponent]
+    ],
+    declarations: [GruposComponent],
 })
-export class GruposModule { }
+export class GruposModule {}

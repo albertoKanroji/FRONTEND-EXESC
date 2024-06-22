@@ -7,17 +7,19 @@ import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		EncuestasStudentRoutingModule,
-		ButtonModule,
-		RippleModule,
-		SplitButtonModule,
-		ToggleButtonModule,
+    imports: [
+        NgxLoadingModule.forRoot({}),
+        CommonModule,
+        EncuestasStudentRoutingModule,
+        ButtonModule,
+        RippleModule,
+        SplitButtonModule,
+        ToggleButtonModule,
         TableModule,
-	],
-	declarations: [EncuestasStudentComponent]
+    ],
+    declarations: [EncuestasStudentComponent],
 })
-export class EncuestasStudentModule { }
+export class EncuestasStudentModule {}

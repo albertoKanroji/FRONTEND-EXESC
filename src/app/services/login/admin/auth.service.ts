@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthService {
     private profile: string;
@@ -19,14 +19,26 @@ export class AuthService {
     }
 
     login(email: string, password: string): Observable<any> {
-      return this.http.post<any>(`${environment.apiUrl}/users/login`, { email, password });
+        return this.http.post<any>(`${environment.apiUrl}/users/login`, {
+            email,
+            password,
+        });
     }
     loginStudent(email: string, password: string): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/students/login`, { email, password });
+        return this.http.post<any>(`${environment.apiUrl}/students/login`, {
+            email,
+            password,
+        });
+    }
+    loginTeacher(email: string, password: string): Observable<any> {
+        return this.http.post<any>(`${environment.apiUrl}/teachers/login`, {
+            email,
+            password,
+        });
     }
     setUserProfile(profile: string) {
         this.profile = profile;
-        localStorage.setItem('profile',profile);
+        localStorage.setItem('profile', profile);
     }
 
     getUserProfile(): string {
@@ -34,8 +46,8 @@ export class AuthService {
     }
 
     setToken(token: string): void {
-      this.token = token;
-      localStorage.setItem('token', token);
+        this.token = token;
+        localStorage.setItem('token', token);
     }
     setIdStudent(id: string): void {
         const idAsNumber = parseInt(id, 10);
@@ -43,12 +55,11 @@ export class AuthService {
         localStorage.setItem('id', idAsNumber.toString());
     }
 
-
     getToken(): string | null {
-      if (!this.token) {
-        this.token = localStorage.getItem('token');
-      }
-      return this.token;
+        if (!this.token) {
+            this.token = localStorage.getItem('token');
+        }
+        return this.token;
     }
     setUserModulos(modulos: any[]) {
         this.userModulos = modulos;

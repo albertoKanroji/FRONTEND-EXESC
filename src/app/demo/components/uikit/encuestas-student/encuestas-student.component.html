@@ -1,1 +1,25 @@
-<p>encuestas-student works!</p>
+<div class="encuestas-container">
+    <div *ngFor="let encuesta of encuestas" class="encuesta-card">
+        <h3>{{ encuesta.title }}</h3>
+        <p>{{ encuesta.description }}</p>
+        <div class="button-group">
+            <button
+                (click)="responderEncuesta(encuesta.id)"
+                class="btn responder-btn"
+            >
+                Responder Encuesta
+            </button>
+            <button
+                (click)="recordarmeEnUnDia(encuesta.id)"
+                class="btn recordar-btn"
+            >
+                Recuérdame en 1 día
+            </button>
+        </div>
+    </div>
+</div>
+
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>

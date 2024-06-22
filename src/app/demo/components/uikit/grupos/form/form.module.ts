@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { AlumnosComponent } from './alumnos.component';
+import { FormRoutingModule } from './form-routing.module';
+import { FormGComponent } from './form.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -15,7 +15,6 @@ import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { DropdownModule } from 'primeng/dropdown';
-import { FileUploadModule } from 'primeng/fileupload';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -30,19 +29,17 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsModule
-
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileUploadModule } from 'primeng/fileupload';
 import { NgxLoadingModule } from 'ngx-loading';
+
 @NgModule({
     imports: [
+        CommonModule,
         NgxLoadingModule.forRoot({}),
-        ReactiveFormsModule,
-        CommonModule,
         FormsModule,
-        CommonModule,
-        AlumnosRoutingModule,
+        FormRoutingModule,
+        ReactiveFormsModule,
         ButtonModule,
         RippleModule,
         SplitButtonModule,
@@ -51,7 +48,6 @@ import { NgxLoadingModule } from 'ngx-loading';
         AutoCompleteModule,
         CalendarModule,
         ChipsModule,
-        FileUploadModule,
         DropdownModule,
         InputMaskModule,
         InputNumberModule,
@@ -73,7 +69,8 @@ import { NgxLoadingModule } from 'ngx-loading';
         ButtonModule,
         InputGroupModule,
         InputGroupAddonModule,
+        FileUploadModule,
     ],
-    declarations: [AlumnosComponent],
+    declarations: [FormGComponent],
 })
-export class AlumnosModule {}
+export class FormModule {}

@@ -36,6 +36,22 @@ import { RouterModule } from '@angular/router';
                         './actividades/form-actividades/form-actividades.module'
                     ).then((m) => m.FormActividadesModule),
             },
+            {
+                path: 'grupos/new',
+                data: { breadcrumb: 'grupos' },
+                loadChildren: () =>
+                    import('./grupos/form/form-routing.module').then(
+                        (m) => m.FormRoutingModule
+                    ),
+            },
+            {
+                path: 'grupos/new/:id',
+                data: { breadcrumb: 'grupos' },
+                loadChildren: () =>
+                    import('./grupos/form/form-routing.module').then(
+                        (m) => m.FormRoutingModule
+                    ),
+            },
 
             {
                 path: 'alumnos',
@@ -53,6 +69,7 @@ import { RouterModule } from '@angular/router';
                         (m) => m.GruposModule
                     ),
             },
+
             {
                 path: 'docentes',
                 data: { breadcrumb: 'docentes' },
@@ -138,7 +155,7 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             {
-                path: 'alumno/encuestas',
+                path: 'alumno/horario',
                 data: { breadcrumb: 'encuestas-alumno' },
                 loadChildren: () =>
                     import('./horario-student/horario-student.module').then(
@@ -146,11 +163,28 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             {
-                path: 'alumno/horario',
+                path: 'alumno/encuestas',
                 data: { breadcrumb: 'horario-alumno' },
                 loadChildren: () =>
                     import('./encuestas-student/encuestas-student.module').then(
                         (m) => m.EncuestasStudentModule
+                    ),
+            },
+            {
+                path: 'alumno/actividades',
+                data: { breadcrumb: 'grupos' },
+                loadChildren: () =>
+                    import('./grupos-student/grupos-student.module').then(
+                        (m) => m.GruposStudentModule
+                    ),
+            },
+
+            {
+                path: 'maestro/grupos',
+                data: { breadcrumb: 'encuestas-alumno' },
+                loadChildren: () =>
+                    import('./horario-teacher/horario-student.module').then(
+                        (m) => m.HorarioStudentModule
                     ),
             },
 
