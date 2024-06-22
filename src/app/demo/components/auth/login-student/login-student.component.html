@@ -1,13 +1,13 @@
 <div
     class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
 >
+    <ngx-loading
+        [show]="loading"
+        [config]="{ backdropBorderRadius: '3px' }"
+    ></ngx-loading>
     <div class="flex flex-column align-items-center justify-content-center">
         <img
-            src="assets/layout/images/{{
-                layoutService.config().colorScheme === 'light'
-                    ? 'logo-dark'
-                    : 'logo-white'
-            }}.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/f/fd/LogoITLAC.png"
             alt="Logo"
             class="mb-5 w-6rem flex-shrink-0"
         />

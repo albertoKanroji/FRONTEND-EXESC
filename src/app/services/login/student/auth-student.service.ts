@@ -2,19 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthStudentService {
-
     private token: string | null = null;
+    private image: string | null = null;
     private profile: string;
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) {}
 
     login(email: string, password: string): Observable<any> {
-      return this.http.post<any>(`${environment.apiUrl}/students/login`, { email, password });
+        return this.http.post<any>(`${environment.apiUrl}/students/login`, {
+            email,
+            password,
+        });
     }
     setToken(token: string): void {
         this.token = token;
@@ -33,7 +36,6 @@ export class AuthStudentService {
         }
         return this.token;
     }
-
 
     logout(): void {
         this.token = null;

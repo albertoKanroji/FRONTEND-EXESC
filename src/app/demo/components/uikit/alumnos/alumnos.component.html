@@ -1,7 +1,19 @@
 <div class="col-12">
     <div class="card">
-        <h5>Datos</h5>
+        <h5>Mis Datos</h5>
         <form [formGroup]="studentForm" class="grid">
+            <div class="col-12" *ngIf="profileImage">
+                <img
+                    [src]="profileImage"
+                    alt="Profile Image"
+                    style="
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        margin-top: 10px;
+                    "
+                />
+            </div>
             <div class="col-12 md:col-6">
                 <p-inputGroup>
                     <p-inputGroupAddon>
@@ -96,35 +108,47 @@
             <div class="col-12 md:col-6">
                 <p-inputGroup>
                     <p-inputGroupAddon>
-                        <p-checkbox
-                            formControlName="status"
-                            [binary]="true"
-                        ></p-checkbox>
+                        <i class="pi pi-user"></i>
                     </p-inputGroupAddon>
                     <input
-                        type="text"
                         pInputText
-                        placeholder="Profile"
+                        type="test"
+                        placeholder="Numero de Control"
                         formControlName="profile"
                     />
                 </p-inputGroup>
             </div>
+
             <div class="col-12 md:col-6">
-                <p-dropdown
-                    [options]="cities"
-                    formControlName="careers_id"
-                    placeholder="Selecciona tu Carrera"
-                ></p-dropdown>
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-user"></i>
+                    </p-inputGroupAddon>
+                    <input
+                        pInputText
+                        type="number"
+                        placeholder="Numero de Control"
+                        formControlName="careers_id"
+                    />
+                </p-inputGroup>
             </div>
             <div class="col-12 md:col-6">
                 <p-fileUpload
                     mode="basic"
-                    name="demo[]"
-                    url="./upload.php"
+                    name="demo"
                     accept="image/*"
                     [maxFileSize]="1000000"
-                    (onUpload)="onBasicUpload()"
+                    (onSelect)="onFileSelect($event)"
                 ></p-fileUpload>
+            </div>
+
+            <div class="col-12">
+                <button
+                    type="button"
+                    pButton
+                    label="Actualizar Datos"
+                    (click)="updateData()"
+                ></button>
             </div>
         </form>
     </div>

@@ -8,9 +8,13 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
+import { NgxLoadingModule } from 'ngx-loading';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
     imports: [
+        ToastModule,
+        NgxLoadingModule.forRoot({}),
         CommonModule,
         LoginStudentRoutingModule,
         ButtonModule,
@@ -20,6 +24,6 @@ import { InputTextModule } from 'primeng/inputtext';
         PasswordModule,
         ReactiveFormsModule,
     ],
-    declarations: [LoginStudentComponent]
+    declarations: [LoginStudentComponent],
 })
-export class LoginStudentModule { }
+export class LoginStudentModule {}

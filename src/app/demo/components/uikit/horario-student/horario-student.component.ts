@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ActividadesService } from 'src/app/services/actividades/actividades.service';
 
 @Component({
@@ -11,18 +12,37 @@ export class HorarioStudentComponent {
     groups: any[] = [];
     studentId = 1; // Aquí debes obtener dinámicamente el ID del estudiante
     loading = false;
-    constructor(private groupService: ActividadesService) {}
+    constructor(
+        private groupService: ActividadesService,
+        private toastr: ToastrService
+    ) {}
 
     ngOnInit(): void {
         this.loading = true;
-        this.groupService
-            .getGroupsByStudentId(this.studentId)
-            .subscribe((response: any) => {
+        this.groupService.getGroupsByStudentId(this.studentId).subscribe({
+            next: (response: any) => {
                 if (response.success) {
+                    this.showSuccess();
                     this.groups = response.data;
-                    this.loading = false;
+                } else {
+                    this.showError();
                 }
+            },
+            error: (error) => {
                 this.loading = false;
-            });
+                console.error('Error fetching groups:', error);
+                this.showError();
+            },
+            complete: () => {
+                this.loading = false;
+            },
+        });
+    }
+
+    showSuccess() {
+        this.toastr.info('Completado', 'Datos Cargados');
+    }
+    showError() {
+        this.toastr.error('Error', 'Ocurrio un Error');
     }
 }

@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
     private profile: string;
     private token: string | null = null;
+    private image: string | null = null;
+    private name: string | null = null;
     private id: number;
     private userProfile: string;
     private isAuthenticatedFlag = false;
@@ -44,7 +46,13 @@ export class AuthService {
     getUserProfile(): string {
         return this.profile;
     }
+    setUserImage(image: string, name: string) {
+        this.image = image;
+        this.name = name;
 
+        localStorage.setItem('image', image);
+        localStorage.setItem('name', name);
+    }
     setToken(token: string): void {
         this.token = token;
         localStorage.setItem('token', token);

@@ -1,25 +1,50 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { LayoutService } from "./service/app.layout.service";
+import { MenuItem, MessageService } from 'primeng/api';
+import { LayoutService } from './service/app.layout.service';
 import { AuthService } from '../services/login/admin/auth.service';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    templateUrl: './app.topbar.component.html',
+    providers: [MessageService],
 })
 export class AppTopBarComponent {
-
     items!: MenuItem[];
-
+    profileImage: string | null = null;
+    profileName: string | null = null;
+    showLogoutMenu: boolean = false;
     @ViewChild('menubutton') menuButton!: ElementRef;
 
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,private auth :AuthService) { }
-
-    logout(){
-        this.auth.logout()
+    constructor(
+        public layoutService: LayoutService,
+        private auth: AuthService,
+        private messageService: MessageService,
+        private toastr: ToastrService
+    ) {}
+    loadProfileImage(): void {
+        this.profileImage = localStorage.getItem('image');
+        this.profileName = localStorage.getItem('name');
+    }
+    logout() {
+        this.auth.logout();
+        this.showLogoutMenu = false;
+        this.showSuccess;
+    }
+    ngOnInit(): void {
+        this.loadProfileImage();
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Sesion Cerrada');
+    }
+    showError() {
+        this.toastr.error('Error', 'Credenciales incorrectas');
     }
 }

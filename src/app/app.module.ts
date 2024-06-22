@@ -20,10 +20,20 @@ import { AuthInterceptor } from './services/login/auth/auth-interceptor.service'
 import { ErrorComponent } from './demo/components/auth/error/error.component';
 import { AuthRoleGuard } from './guards/role/auth-role.guard';
 import { NgxLoadingModule } from 'ngx-loading';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'primeng/toast';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule, NgxLoadingModule.forRoot({})],
+    imports: [
+        AppRoutingModule,
+        AppLayoutModule,
+        NgxLoadingModule.forRoot({}),
+        ToastModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
+    ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
