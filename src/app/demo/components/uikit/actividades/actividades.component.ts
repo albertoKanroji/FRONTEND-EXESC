@@ -8,6 +8,7 @@ import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Actividad } from 'src/app/interfaces/actividades';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 interface expandedRows {
     [key: string]: boolean;
 }
@@ -24,24 +25,32 @@ export class ActividadesComponent implements OnInit {
     @ViewChild('filter') filter!: ElementRef;
     constructor(
         private actividadesService: ActividadesService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
-        this.actividadesService.getActividades().subscribe(
-            (data: any) => {
+        this.loading = true;
+        this.actividadesService.getActividades().subscribe({
+            next: (data: any) => {
                 if (data.success) {
+                    this.showSuccess();
                     this.actividades = data.data;
                     console.log('Actividades:', this.actividades);
                 }
                 this.loading = false;
             },
-            (error) => {
+            error: (error) => {
+                this.showError();
                 console.error('Error al obtener las actividades:', error);
                 this.loading = false;
-            }
-        );
+            },
+            complete: () => {
+                this.loading = false;
+            },
+        });
     }
+
     onGlobalFilter(table: any, event: Event) {
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
@@ -54,5 +63,11 @@ export class ActividadesComponent implements OnInit {
     }
     navigateToForm(): void {
         this.router.navigate(['modules/actividades/actividades-form']);
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Datos cargados');
+    }
+    showError() {
+        this.toastr.error('Error', 'Ocurrio un error');
     }
 }

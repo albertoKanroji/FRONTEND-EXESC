@@ -10,7 +10,8 @@ import { ActividadesService } from 'src/app/services/actividades/actividades.ser
 })
 export class HorarioStudentComponent {
     groups: any[] = [];
-    studentId = 1; // Aquí debes obtener dinámicamente el ID del estudiante
+    // Aquí debes obtener dinámicamente el ID del estudiante
+    studentId = localStorage.getItem('id');
     loading = false;
     constructor(
         private groupService: ActividadesService,

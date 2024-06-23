@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from 'src/app/services/login/admin/auth.service';
 
@@ -19,7 +20,8 @@ export class LoginTeacherComponent {
         public layoutService: LayoutService,
         private fb: FormBuilder,
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {}
     loginForm: FormGroup;
     isSubmitted = false;
@@ -61,5 +63,11 @@ export class LoginTeacherComponent {
                 this.errorMessage = 'Invalid email or password';
             }
         );
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Incio de sesion Exitoso');
+    }
+    showError() {
+        this.toastr.error('Error', 'Credenciales incorrectas');
     }
 }

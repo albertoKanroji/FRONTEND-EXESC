@@ -1,22 +1,32 @@
-<div *ngFor="let group of groups" class="group-card">
-    <h2>{{ group.activity_name }}</h2>
-    <div class="group-info">
-        <p><strong>Lugar:</strong> {{ group.location }}</p>
-        <p><strong>Maestro:</strong> {{ group.teacher }}</p>
+<div *ngIf="groups.length > 0; else noGroups">
+    <div *ngFor="let group of groups" class="group-card">
+        <h2>{{ group.activity_name }}</h2>
+        <div class="group-info">
+            <p><strong>Lugar:</strong> {{ group.location }}</p>
+            <p><strong>Maestro:</strong> {{ group.teacher }}</p>
+        </div>
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+            <tr *ngFor="let schedule of group.schedules">
+                <td>{{ schedule.day }}</td>
+                <td>{{ schedule.start_time }}</td>
+                <td>{{ schedule.end_time }}</td>
+            </tr>
+        </table>
     </div>
-    <table>
-        <tr>
-            <th>Day</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-        </tr>
-        <tr *ngFor="let schedule of group.schedules">
-            <td>{{ schedule.day }}</td>
-            <td>{{ schedule.start_time }}</td>
-            <td>{{ schedule.end_time }}</td>
-        </tr>
-    </table>
 </div>
+<ng-template #noGroups>
+    <div class="center-card">
+        <div class="card">
+            <p>Sin actividades extracurriculares registradas</p>
+            <p>Contacta a Extraescolares</p>
+        </div>
+    </div>
+</ng-template>
 <ngx-loading
     [show]="loading"
     [config]="{ backdropBorderRadius: '3px' }"

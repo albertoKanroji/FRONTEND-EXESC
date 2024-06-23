@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { ActividadesService } from 'src/app/services/actividades/actividades.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
@@ -28,7 +29,8 @@ export class FormActividadesComponent {
         private gruposService: GruposService,
         private fb: FormBuilder,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {
         this.actividadForm = this.fb.group({
             name: ['', Validators.required],
@@ -53,6 +55,7 @@ export class FormActividadesComponent {
     loadActividad(id: string): void {
         this.actividadesService.getActivityById(id).subscribe({
             next: (response) => {
+                this.showSuccess();
                 const data = response.data;
                 console.log(data);
                 this.actividadForm.patchValue({
@@ -72,6 +75,7 @@ export class FormActividadesComponent {
                 }
             },
             error: (err) => {
+                this.showError();
                 console.error('Error al obtener la actividad', err);
                 this.messageService.add({
                     severity: 'error',
@@ -206,5 +210,14 @@ export class FormActividadesComponent {
             });
         };
         reader.readAsDataURL(file);
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Datos cargados');
+    }
+    showSuccessUpload() {
+        this.toastr.success('Completado', 'Datos Actualizados');
+    }
+    showError() {
+        this.toastr.error('Error', 'Ocurrio un error');
     }
 }
