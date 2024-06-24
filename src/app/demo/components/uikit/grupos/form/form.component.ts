@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { ActividadesService } from 'src/app/services/actividades/actividades.service';
+import { DocentesService } from 'src/app/services/docentes/docentes.service';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
+import { PeriodosService } from 'src/app/services/periodos/periodos.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-form',
@@ -12,65 +16,231 @@ import { GruposService } from 'src/app/services/grupos/grupos.service';
     styleUrl: './form.component.scss',
     providers: [MessageService],
 })
-export class FormGComponent {
+export class FormComponent {
     actividadForm: FormGroup;
     id: string | null = null;
-    periodos: any[] = [];
-    actividades: any[] = [];
+
     isEdit: boolean = false;
     uploadedFiles: any[] = [];
     base64Image: string | null = null;
-    public loading = false;
+    loading = false;
+    periodos: any[] = [];
+    actividades: any[] = [];
+    docentes: any[] = [];
+    tipoGrupos: any[] = [];
+
+    daysOfWeek = [
+        { label: 'Lunes', value: 'Monday' },
+        { label: 'Martes', value: 'Tuesday' },
+        { label: 'Miércoles', value: 'Wednesday' },
+        { label: 'Jueves', value: 'Thursday' },
+        { label: 'Viernes', value: 'Friday' },
+        { label: 'Sábado', value: 'Saturday' },
+        { label: 'Domingo', value: 'Sunday' },
+    ];
+
     constructor(
         private route: ActivatedRoute,
         private actividadesService: ActividadesService,
         private gruposService: GruposService,
         private fb: FormBuilder,
         private messageService: MessageService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService,
+        private periodosService: PeriodosService,
+        private docentesService: DocentesService
     ) {
         this.actividadForm = this.fb.group({
-            name: ['', Validators.required],
-            type_of_activities_id: [null, Validators.required],
-            image: [null, Validators.required],
+            quota_limit: [
+                '',
+                [Validators.required, Validators.pattern(/^\d+$/)],
+            ],
+            location: ['', [Validators.required, Validators.maxLength(255)]],
+            periods_id: [null, [Validators.required]],
+            teachers_id: [
+                null,
+                [Validators.required, Validators.pattern(/^\d+$/)],
+            ],
+            activities_id: [
+                null,
+                [Validators.required, Validators.pattern(/^\d+$/)],
+            ],
+            type_of_groups_id: [
+                null,
+                [Validators.required, Validators.pattern(/^\d+$/)],
+            ],
+            schedules: this.fb.array([]), // Inicializamos el FormArray vacío
+        });
+    }
+    // Función para crear un nuevo FormGroup para el subformulario de horarios
+    createSchedule(): FormGroup {
+        return this.fb.group({
+            day: ['', Validators.required],
+            start_time: ['', Validators.required],
+            end_time: ['', Validators.required],
         });
     }
 
+    // Función para agregar un nuevo horario al FormArray de schedules
+    addSchedule(): void {
+        this.schedules.push(this.createSchedule());
+    }
+
+    // Función para eliminar un horario del FormArray de schedules
+    removeSchedule(index: number): void {
+        this.schedules.removeAt(index);
+    }
+
+    // Getter para acceder al FormArray de schedules
+    get schedules(): FormArray {
+        return this.actividadForm.get('schedules') as FormArray;
+    }
+
     ngOnInit(): void {
-        this.loadGrupos();
+        this.loadTipo();
+        this.loadPeriodo();
+        this.loadDocente();
+        this.loadActividad();
         this.route.paramMap.subscribe((params) => {
             this.id = params.get('id');
             this.isEdit = this.id !== null;
             if (this.isEdit) {
-                this.loadActividad(this.id);
+                this.loadGrupoID(this.id);
+
                 console.log('Editando actividad con ID:', this.id);
             } else {
                 console.log('Creando nueva actividad');
             }
         });
     }
-    loadActividad(id: string): void {
-        this.actividadesService.getActivityById(id).subscribe({
+    loadActividad() {
+        this.actividadesService.getActividades().subscribe({
             next: (response) => {
+                // console.log('tipo de actividades response:', response.data);
                 const data = response.data;
                 console.log(data);
-                this.actividadForm.patchValue({
-                    name: data.name,
-                    type_of_activities_id: {
-                        id: data.type_of_activities_id,
-                    },
-                });
-                if (data.image) {
-                    // Si hay una imagen, cargarla en el formulario
-                    this.base64Image = data.image; // Suponiendo que la imagen ya está en base64
-                    this.messageService.add({
-                        severity: 'info',
-                        summary: 'Imagen cargada',
-                        detail: 'La imagen de la actividad ha sido cargada',
-                    });
+                if (Array.isArray(data)) {
+                    this.actividades = data.map((actividad: any) => ({
+                        label: actividad.name,
+                        value: { id: actividad.id },
+                    }));
+                } else {
+                    console.error(
+                        'La respuesta de actividades no es un arreglo',
+                        data
+                    );
                 }
             },
+            error: (err) => console.error('Error al obtener actividades', err),
+        });
+    }
+    loadPeriodo() {
+        this.periodosService.getPeriodos().subscribe({
+            next: (response) => {
+                // console.log('tipo de actividades response:', response.data);
+                const data = response.data;
+                console.log(data);
+                if (Array.isArray(data)) {
+                    this.periodos = data.map((actividad: any) => ({
+                        label: actividad.period,
+                        value: { id: actividad.id },
+                    }));
+                } else {
+                    console.error(
+                        'La respuesta de actividades no es un arreglo',
+                        data
+                    );
+                }
+            },
+            error: (err) => console.error('Error al obtener actividades', err),
+        });
+    }
+    loadTipo() {
+        this.actividadesService.getTipoGrupos().subscribe({
+            next: (response) => {
+                console.log('tipo de actividades response:', response.data);
+                const data = response.data;
+                if (Array.isArray(data)) {
+                    this.tipoGrupos = data.map((actividad: any) => ({
+                        label: actividad.name,
+                        value: { id: actividad.id },
+                    }));
+                } else {
+                    console.error(
+                        'La respuesta de actividades no es un arreglo',
+                        data
+                    );
+                }
+            },
+            error: (err) => console.error('Error al obtener actividades', err),
+        });
+    }
+    loadDocente() {
+        this.docentesService.getDocentes().subscribe({
+            next: (response) => {
+                // console.log('tipo de actividades response:', response.data);
+                const data = response.data;
+                console.log(data);
+                if (Array.isArray(data)) {
+                    this.docentes = data.map((actividad: any) => ({
+                        label: actividad.name,
+                        value: { id: actividad.id },
+                    }));
+                } else {
+                    console.error(
+                        'La respuesta de actividades no es un arreglo',
+                        data
+                    );
+                }
+            },
+            error: (err) => console.error('Error al obtener actividades', err),
+        });
+    }
+
+    loadGrupoID(id: string): void {
+        this.loading = true;
+        this.gruposService.getGroupById(id).subscribe({
+            next: (response) => {
+                this.showSuccess();
+                const data = response.data;
+                console.log(data);
+                console.log(data.periods_id);
+                this.actividadForm.patchValue({
+                    quota_limit: data.quota_limit,
+                    location: data.location,
+                    periods_id: {
+                        id: data.periods_id,
+                    },
+                    teachers_id: {
+                        id: data.teachers_id,
+                    },
+                    activities_id: {
+                        id: data.activities_id,
+                    },
+                    type_of_groups_id: {
+                        id: data.type_of_groups_id,
+                    },
+                });
+
+                // Rellenar el FormArray de schedules
+                const schedulesFormArray = this.actividadForm.get(
+                    'schedules'
+                ) as FormArray;
+                schedulesFormArray.clear(); // Limpiar cualquier elemento existente en el FormArray
+                data.schedules.forEach((schedule: any) => {
+                    schedulesFormArray.push(
+                        this.fb.group({
+                            day: schedule.day,
+                            start_time: schedule.start_time,
+                            end_time: schedule.end_time,
+                        })
+                    );
+                });
+                this.loading = false;
+            },
             error: (err) => {
+                this.loading = false;
+                this.showError();
                 console.error('Error al obtener la actividad', err);
                 this.messageService.add({
                     severity: 'error',
@@ -102,19 +272,28 @@ export class FormGComponent {
         });
     }
 
-    crearActividad(): void {
-        if (this.actividadForm.valid) {
+    crearGrupo(): void {
+        console.log(this.actividadForm.value);
+        if (this.actividadForm) {
             const formValue = this.actividadForm.value;
-            console.log(formValue);
             const actividadData = {
-                name: formValue.name,
-                type_of_activities_id: Number(
-                    formValue.type_of_activities_id.id
-                ), // Enviar solo el ID
-                image: formValue.image,
+                quota_limit: formValue.quota_limit,
+                location: formValue.location,
+                periods_id: formValue.periods_id.id,
+                teachers_id: formValue.teachers_id.id,
+                activities_id: formValue.activities_id.id,
+                type_of_groups_id: formValue.type_of_groups_id.id,
+                schedules: formValue.schedules.map((schedule: any) => ({
+                    day: schedule.day,
+                    start_time: schedule.start_time,
+                    end_time: schedule.end_time,
+                })),
             };
-            this.actividadesService.crearActividad(actividadData).subscribe({
+            console.log(actividadData);
+
+            this.gruposService.crearGrupo(actividadData).subscribe({
                 next: (response) => {
+                    this.showSuccessUpload();
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Éxito',
@@ -131,6 +310,7 @@ export class FormGComponent {
                 },
             });
         } else {
+            console.log('campos requeridos');
             this.messageService.add({
                 severity: 'warn',
                 summary: 'Advertencia',
@@ -141,38 +321,36 @@ export class FormGComponent {
 
     editarActividad(): void {
         this.loading = true;
-        if (this.actividadForm.valid) {
+        if (this.actividadForm) {
             const formValue = this.actividadForm.value;
             const actividadData = {
-                name: formValue.name,
-                type_of_activities_id: Number(
-                    formValue.type_of_activities_id.id
-                ), // Enviar solo el ID
-                image: formValue.image,
+                quota_limit: formValue.quota_limit,
+                location: formValue.location,
+                periods_id: formValue.periods_id.id,
+                teachers_id: formValue.teachers_id.id,
+                activities_id: formValue.activities_id.id,
+                type_of_groups_id: formValue.type_of_groups_id.id,
+                schedules: formValue.schedules.map((schedule: any) => ({
+                    day: schedule.day,
+                    start_time: schedule.start_time,
+                    end_time: schedule.end_time,
+                })),
             };
+            console.log(actividadData);
 
-            this.actividadesService
-                .editarActividad(this.id, actividadData)
-                .subscribe({
-                    next: (response) => {
-                        this.loading = false;
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Éxito',
-                            detail: 'Actividad editada exitosamente',
-                        });
-                        this.router.navigate(['/modules/actividades']);
-                    },
-                    error: (err) => {
-                        this.loading = false;
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: 'Error al editar la actividad',
-                        });
-                        console.error('Error al editar la actividad', err);
-                    },
-                });
+            this.gruposService.editarGrupo(this.id, actividadData).subscribe({
+                next: (response) => {
+                    this.loading = false;
+                    this.showSuccessUpload();
+
+                    this.router.navigate(['/modules/grupos']);
+                },
+                error: (err) => {
+                    this.loading = false;
+                    this.showError();
+                    console.error('Error al crear la actividad', err);
+                },
+            });
         } else {
             this.messageService.add({
                 severity: 'warn',
@@ -186,7 +364,7 @@ export class FormGComponent {
         if (this.isEdit) {
             this.editarActividad();
         } else {
-            this.crearActividad();
+            this.crearGrupo();
         }
     }
 
@@ -205,5 +383,14 @@ export class FormGComponent {
             });
         };
         reader.readAsDataURL(file);
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Datos cargados');
+    }
+    showSuccessUpload() {
+        this.toastr.success('Completado', 'Datos Actualizados');
+    }
+    showError() {
+        this.toastr.error('Error', 'Ocurrio un error');
     }
 }

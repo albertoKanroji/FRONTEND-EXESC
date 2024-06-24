@@ -40,16 +40,16 @@ import { RouterModule } from '@angular/router';
                 path: 'grupos/new',
                 data: { breadcrumb: 'grupos' },
                 loadChildren: () =>
-                    import('./grupos/form/form-routing.module').then(
-                        (m) => m.FormRoutingModule
+                    import('./grupos/form/form.module').then(
+                        (m) => m.FormGroupModule
                     ),
             },
             {
                 path: 'grupos/new/:id',
                 data: { breadcrumb: 'grupos' },
                 loadChildren: () =>
-                    import('./grupos/form/form-routing.module').then(
-                        (m) => m.FormRoutingModule
+                    import('./grupos/form/form.module').then(
+                        (m) => m.FormGroupModule
                     ),
             },
 

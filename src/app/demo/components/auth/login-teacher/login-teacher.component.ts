@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AuthService } from 'src/app/services/login/admin/auth.service';
+import { emailDomainValidator } from '../login-student/email-domain.validator';
 
 @Component({
     selector: 'app-login-teacher',
@@ -30,7 +31,14 @@ export class LoginTeacherComponent {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
+            email: [
+                '',
+                [
+                    Validators.required,
+                    Validators.email,
+                    emailDomainValidator('lcardenas.tecnm.mx'),
+                ],
+            ],
             password: ['', [Validators.required, Validators.minLength(6)]],
             rememberMe: [false],
         });

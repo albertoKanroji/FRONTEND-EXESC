@@ -86,10 +86,6 @@
             </p-table>
         </div>
     </div>
-    <ngx-loading
-        [show]="loading"
-        [config]="{ backdropBorderRadius: '3px' }"
-    ></ngx-loading>
 </div>
 <div class="col-12" *ngIf="alumnos.length === 0 && !loading">
     <div class="card">
@@ -97,3 +93,7 @@
         <p>No se encontraron resultados.</p>
     </div>
 </div>
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>

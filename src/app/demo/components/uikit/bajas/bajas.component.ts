@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { CountryService } from 'src/app/demo/service/country.service';
 import { AlumnosService } from 'src/app/services/alumnos/alumnos.service';
@@ -37,7 +38,8 @@ export class BajasComponent {
         private periodosService: PeriodosService,
         private docentesService: DocentesService,
         private envioDatosService: EvaluacionesService,
-        private gruposService: GruposService
+        private gruposService: GruposService,
+        private toastr: ToastrService
     ) {}
     loadPeriodos(): void {
         this.periodosService.getPeriodos().subscribe({
@@ -98,6 +100,7 @@ export class BajasComponent {
             .getStudentsByPeriodAndGroup(periodId, groupId)
             .subscribe({
                 next: (response) => {
+                    this.showSuccess();
                     console.log('Datos recibidos correctamente', response.data);
                     this.alumnos = response.data || [];
                     this.loading = false;
@@ -116,6 +119,7 @@ export class BajasComponent {
                     }
                 },
                 error: (err) => {
+                    this.showError();
                     console.error('Error al recibir los datos', err);
                     this.loading = false;
                     this.messageService.add({
@@ -136,5 +140,11 @@ export class BajasComponent {
 
     clear(table: any) {
         table.clear();
+    }
+    showSuccess() {
+        this.toastr.info('Completado', 'Datos cargados');
+    }
+    showError() {
+        this.toastr.error('Error', 'Ocurrio un error');
     }
 }

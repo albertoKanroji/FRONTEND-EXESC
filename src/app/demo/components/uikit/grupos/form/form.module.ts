@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormRoutingModule } from './form-routing.module';
-import { FormGComponent } from './form.component';
+import { FormGroupRoutingModule } from './form-routing.module';
+import { FormComponent } from './form.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -38,7 +38,7 @@ import { NgxLoadingModule } from 'ngx-loading';
         CommonModule,
         NgxLoadingModule.forRoot({}),
         FormsModule,
-        FormRoutingModule,
+        FormGroupRoutingModule,
         ReactiveFormsModule,
         ButtonModule,
         RippleModule,
@@ -71,6 +71,6 @@ import { NgxLoadingModule } from 'ngx-loading';
         InputGroupAddonModule,
         FileUploadModule,
     ],
-    declarations: [FormGComponent],
+    declarations: [FormComponent],
 })
-export class FormModule {}
+export class FormGroupModule {}

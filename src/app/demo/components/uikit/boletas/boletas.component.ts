@@ -31,7 +31,7 @@ export class BoletasComponent {
     grupos: any[] = [];
     carreras: any[] = [];
     alumnos: any[] = [];
-    loading: boolean = false;
+    loading = false;
     ngOnInit(): void {
         this.loadPeriodos();
         this.studentForm = this.fb.group({
@@ -139,6 +139,7 @@ export class BoletasComponent {
     }
 
     loadALumnos(): void {
+        this.loading = true;
         const periodId = this.studentForm.get('periodoId')!.value?.id;
         const filterId = this.studentForm.get('filterId')!.value;
         const opcion = this.studentForm.get('opcion')!.value?.id;

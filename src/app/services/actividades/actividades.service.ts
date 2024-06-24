@@ -10,11 +10,18 @@ import { environment } from 'src/environments/environment';
 export class ActividadesService {
     constructor(private http: HttpClient) {}
 
-    getActividades(): Observable<Actividad[]> {
-        return this.http.get<Actividad[]>(`${environment.apiUrl}/activities/`);
+    getActividades(): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/activities/`);
     }
     getTipoActividades(): Observable<any> {
         return this.http.get<any>(`${environment.apiUrl}/types-of-activities/`);
+    }
+    getTipoGruposById(id: string): Observable<any> {
+        const url = `${environment.apiUrl}/types-of-groups/${id}`; // Suponiendo que la API tiene un endpoint para obtener actividades por ID
+        return this.http.get<any>(url);
+    }
+    getTipoGrupos(): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/types-of-groups/`);
     }
     crearActividad(actividad: any): Observable<any> {
         return this.http.post<any>(
