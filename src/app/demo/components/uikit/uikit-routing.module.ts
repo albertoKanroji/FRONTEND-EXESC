@@ -52,6 +52,22 @@ import { RouterModule } from '@angular/router';
                         (m) => m.FormGroupModule
                     ),
             },
+            {
+                path: 'docentes/new',
+                data: { breadcrumb: 'grupos' },
+                loadChildren: () =>
+                    import('./docentes/form/form.module').then(
+                        (m) => m.FormGroupModule
+                    ),
+            },
+            {
+                path: 'docentes/new/:id',
+                data: { breadcrumb: 'grupos' },
+                loadChildren: () =>
+                    import('./docentes/form/form.module').then(
+                        (m) => m.FormGroupModule
+                    ),
+            },
 
             {
                 path: 'alumnos',

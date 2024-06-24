@@ -15,4 +15,16 @@ export class DocentesService {
     getDocentesId(): Observable<any> {
         return this.http.get<any>(`${environment.apiUrl}/teachers/`);
     }
+
+    getTeacher(id: string): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/teachers/${id}`);
+    }
+
+    createTeacher(data: any): Observable<any> {
+        return this.http.post<any>(`${environment.apiUrl}/teachers/`, data);
+    }
+
+    updateTeacher(id: number, data: any): Observable<any> {
+        return this.http.put<any>(`${environment.apiUrl}/teachers/${id}`, data);
+    }
 }

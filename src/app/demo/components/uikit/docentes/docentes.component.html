@@ -20,10 +20,10 @@
                 >
                     <button
                         pButton
-                        label="Clear"
+                        label="Agregar Docente"
                         class="p-button-outlined mb-2"
-                        icon="pi pi-filter-slash"
-                        (click)="clear(dt1)"
+                        icon="pi pi-plus-circle"
+                        [routerLink]="['/modules/docentes/new']"
                     ></button>
                     <span class="p-input-icon-left mb-2">
                         <i class="pi pi-search"></i>
@@ -53,6 +53,19 @@
                             ></p-columnFilter>
                         </div>
                     </th>
+                    <th style="min-width: 14rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Imagen
+                            <p-columnFilter
+                                type="text"
+                                field="code"
+                                display="menu"
+                                placeholder="Search by code"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
                     <th style="min-width: 12rem">
                         <div
                             class="flex justify-content-between align-items-center"
@@ -79,6 +92,19 @@
                             ></p-columnFilter>
                         </div>
                     </th>
+                    <th style="min-width: 14rem">
+                        <div
+                            class="flex justify-content-between align-items-center"
+                        >
+                            Acciones
+                            <p-columnFilter
+                                type="text"
+                                field="code"
+                                display="menu"
+                                placeholder="Search by code"
+                            ></p-columnFilter>
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-actividad>
@@ -88,10 +114,30 @@
                         {{ actividad.mother_last_name }}
                     </td>
                     <td>
+                        <!-- Renderizar la imagen en base64 -->
+                        <img
+                            [src]="actividad.profile_picture"
+                            alt="{{ actividad.name }}"
+                            style="max-width: 100px; max-height: 100px"
+                        />
+                    </td>
+                    <td>
                         {{ actividad.username }}
                     </td>
                     <td>
                         {{ actividad.email }}
+                    </td>
+                    <td>
+                        <button
+                            pButton
+                            label="Editar"
+                            class="p-button-outlined mb-2"
+                            icon="pi pi-pencil"
+                            [routerLink]="[
+                                '/modules/docentes/new/',
+                                actividad.id
+                            ]"
+                        ></button>
                     </td>
                 </tr>
             </ng-template>
