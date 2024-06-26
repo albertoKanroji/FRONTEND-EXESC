@@ -32,9 +32,14 @@ import { SliderModule } from 'primeng/slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
 import { NgxLoadingModule } from 'ngx-loading';
-
+import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
 @NgModule({
     imports: [
+        CardModule,
+        FieldsetModule,
+        PanelModule,
         CommonModule,
         NgxLoadingModule.forRoot({}),
         FormsModule,

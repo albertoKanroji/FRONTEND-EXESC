@@ -63,6 +63,10 @@ export class LoginTeacherComponent {
                     'modulos',
                     JSON.stringify(response.data.modulos)
                 );
+                this.authService.setUserImage(
+                    response.data.cliente.profile_picture,
+                    response.data.cliente.name
+                );
                 this.router.navigate(['/dashboard']);
                 console.log(response);
             },

@@ -34,8 +34,25 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importar ReactiveFormsM
 
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+
+import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { TabViewModule } from 'primeng/tabview';
+import { NgxLoadingModule } from 'ngx-loading';
+
 @NgModule({
     imports: [
+        NgxLoadingModule.forRoot({}),
+        TabViewModule,
+        MessagesModule,
+        MessageModule,
+        CardModule,
+        FieldsetModule,
+        PanelModule,
         ReactiveFormsModule,
         CommonModule,
         FormsModule,

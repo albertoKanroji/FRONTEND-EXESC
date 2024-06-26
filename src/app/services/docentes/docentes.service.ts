@@ -24,7 +24,7 @@ export class DocentesService {
         return this.http.post<any>(`${environment.apiUrl}/teachers/`, data);
     }
 
-    updateTeacher(id: number, data: any): Observable<any> {
+    updateTeacher(id: string, data: any): Observable<any> {
         return this.http.put<any>(`${environment.apiUrl}/teachers/${id}`, data);
     }
 }

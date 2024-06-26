@@ -1,1 +1,183 @@
-<p>alumnos-admin works!</p>
+<div class="col-12">
+    <div class="card">
+        <form [formGroup]="AlumnoForm" (ngSubmit)="onSubmit()">
+            <p-inputGroup>
+                <input
+                    id="control_number"
+                    pInputText
+                    formControlName="control_number"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ingrese el número de control"
+                />
+                <button
+                    pButton
+                    type="submit"
+                    icon="pi pi-search"
+                    class="p-button-warning"
+                ></button>
+            </p-inputGroup>
+        </form>
+    </div>
+</div>
+
+<div class="col-12" *ngIf="student">
+    <div class="card">
+        <p-tabView>
+            <p-tabPanel header="Datos">
+                <p-table
+                    [value]="studentArray"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Semestre</th>
+                            <th>Telefono</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-student>
+                        <tr>
+                            <td>
+                                {{ student.name }} {{ student.last_name }}
+                                {{ student.mother_last_name }}
+                            </td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.semester }}</td>
+                            <td>{{ student.phone }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            <p-tabPanel header="Boletas">
+                <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit
+                    voluptatem accusantium...
+                </p>
+            </p-tabPanel>
+            <p-tabPanel header="Constancias">
+                <p>
+                    Sed ut perspiciatis unde omnis iste natus error sit
+                    voluptatem accusantium...
+                </p>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<!-- <form [formGroup]="AlumnoForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="control_number">Número de Control</label>
+        <input
+            id="control_number"
+            pInputText
+            formControlName="control_number"
+            type="text"
+            class="form-control"
+            placeholder="Ingrese el número de control"
+        />
+        <div
+            *ngIf="
+                AlumnoForm.get('control_number')?.invalid &&
+                (AlumnoForm.get('control_number')?.dirty ||
+                    AlumnoForm.get('control_number')?.touched)
+            "
+        >
+            <p-message
+                severity="error"
+                *ngIf="AlumnoForm.get('control_number')?.errors?.['required']"
+            >
+                El número de control es requerido.
+            </p-message>
+        </div>
+    </div>
+    <button
+        pButton
+        type="submit"
+        label="Buscar Alumno"
+        class="btn btn-primary"
+        [disabled]="AlumnoForm.invalid"
+    ></button>
+</form>
+<p-card
+    header="Datos Alumno"
+    *ngIf="student"
+    subheader="Card Subheader"
+    [style]="{ width: '360px' }"
+>
+    <ng-template pTemplate="header">
+        <img
+            alt="Card"
+            [src]="student.image"
+            alt="Imagen del Estudiante"
+            style="max-width: 100px"
+        />
+    </ng-template>
+    <p>Lorem ipsum dolor sit amet...</p>
+    <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+            <p-button
+                label="Cancel"
+                severity="secondary"
+                class="w-full"
+                styleClass="w-full"
+            />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+    </ng-template>
+</p-card>
+<div *ngIf="student">
+    <p-card header="Datos Personales">
+        <div class="p-grid">
+            <div class="p-col-6 p-md-6">
+                <p><strong>Nombre:</strong> {{ student.name }}</p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p><strong>Apellido:</strong> {{ student.last_name }}</p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p>
+                    <strong>Apellido Materno:</strong>
+                    {{ student.mother_last_name }}
+                </p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p><strong>Email:</strong> {{ student.email }}</p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p>
+                    <strong>Nombre de Usuario:</strong> {{ student.username }}
+                </p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p>
+                    <strong>Número de Control:</strong>
+                    {{ student.control_number }}
+                </p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p><strong>Status:</strong> {{ student.status }}</p>
+            </div>
+            <div class="p-col-12 p-md-6">
+                <p><strong>Imagen:</strong></p>
+                <img
+                    [src]="student.image"
+                    alt="Imagen del Estudiante"
+                    style="max-width: 100px"
+                />
+            </div>
+        </div>
+    </p-card>
+
+    <p-card header="Boleta">
+        <div class="p-grid">
+            <div class="p-col-6">
+                <p>Contenido de la boleta o información adicional...</p>
+            </div>
+        </div>
+    </p-card>
+</div> -->

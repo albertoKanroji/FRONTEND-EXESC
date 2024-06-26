@@ -74,6 +74,7 @@ export class FormComponent {
         this.route.paramMap.subscribe((params) => {
             this.id = params.get('id');
             this.isEdit = this.id !== null;
+            console.log(this.id);
             if (this.isEdit) {
                 this.loadTeacher(this.id);
                 console.log('Editando actividad con ID:', this.id);
@@ -122,28 +123,49 @@ export class FormComponent {
     }
 
     onSubmit(): void {
+        console.log(this.teacherForm.value);
         this.loading = true;
-        if (this.teacherForm) {
-            if (this.isEditMode) {
+        if (this.teacherForm.valid) {
+            console.log(this.isEdit);
+            if (this.isEdit) {
                 this.teacherService
-                    .updateTeacher(this.teacherId, this.teacherForm.value)
-                    .subscribe(() => {
-                        this.loading = false;
-                        this.showSuccess();
-                        this.router.navigate(['/modules/docentes']);
+                    .updateTeacher(this.id, this.teacherForm.value)
+                    .subscribe({
+                        next: () => {
+                            this.showSuccess();
+                            this.router.navigate(['/modules/docentes']);
+                        },
+                        error: (err) => {
+                            console.error('Error updating teacher:', err);
+                            this.showError();
+                        },
+                        complete: () => {
+                            this.loading = false;
+                        },
                     });
             } else {
-                this.loading = false;
                 this.teacherService
                     .createTeacher(this.teacherForm.value)
-                    .subscribe(() => {
-                        this.loading = false;
-                        this.showSuccess();
-                        this.router.navigate(['/modules/docentes']);
+                    .subscribe({
+                        next: () => {
+                            this.showSuccess();
+                            this.router.navigate(['/modules/docentes']);
+                        },
+                        error: (err) => {
+                            this.loading = false;
+                            console.error('Error creating teacher:', err);
+                            this.showError();
+                        },
+                        complete: () => {
+                            this.loading = false;
+                        },
                     });
             }
+        } else {
+            this.loading = false;
         }
     }
+
     showSuccess() {
         this.toastr.info('Completado', 'Datos cargados');
     }
@@ -151,6 +173,7 @@ export class FormComponent {
         this.toastr.info('Completado', 'Imagen Subida');
     }
     showError() {
+        this.loading = false;
         this.toastr.error('Error', 'Ocurrio un error');
     }
     onFileSelect(event: any): void {
@@ -159,7 +182,11 @@ export class FormComponent {
             const reader = new FileReader();
             reader.onload = (e: any) => {
                 this.profileImage = e.target.result;
-                this.teacherForm.patchValue({ profile_picture: file });
+                this.base64Image = reader.result as string;
+                this.teacherForm.patchValue({
+                    profile_picture: this.base64Image,
+                });
+                console.log(this.base64Image);
                 this.showSuccessImage();
             };
             reader.readAsDataURL(file);
