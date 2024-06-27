@@ -1,0 +1,85 @@
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+
+<div class="card p-fluid">
+    <h5>{{ isEdit ? "Edicion" : "Creacion" }} de Periodo</h5>
+
+    <form [formGroup]="actividadForm">
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="username">Inicio de Periodo</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+            <div class="field col">
+                <label for="periodos">Fin de Periodo</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="username">Inicio de Inscripciones</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+            <div class="field col">
+                <label for="periodos">Fin de Inscripciones</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="username">Inicio de Inscripciones Selectivos</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+            <div class="field col">
+                <label for="periodos">Fin de Inscripciones Selectivos</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="icondisplay"
+                />
+            </div>
+        </div>
+    </form>
+    <div class="flex-container">
+        <button
+            pButton
+            label="{{ isEdit ? 'Guardar Edicion' : 'Guardar' }}"
+            class="p-button-success"
+            icon="pi pi-database"
+            (click)="onSubmit()"
+            style="width: auto; max-width: 30%"
+        ></button>
+        <button
+            pButton
+            label="Cancelar"
+            class="p-button-danger"
+            icon="pi pi-times"
+            [routerLink]="['/modules/periodos/']"
+            style="width: auto; max-width: 30%; margin-left: 5px"
+        ></button>
+    </div>
+</div>

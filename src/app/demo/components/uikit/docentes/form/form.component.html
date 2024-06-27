@@ -1,4 +1,4 @@
-<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+<!-- <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
     <div class="col-12" (click)="fileInput.click()" style="cursor: pointer">
         <ng-container *ngIf="profileImage; else noImage">
             <img
@@ -125,4 +125,179 @@
 <ngx-loading
     [show]="loading"
     [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading> -->
+
+<ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
 ></ngx-loading>
+
+<div class="card p-fluid">
+    <h5>{{ isEdit ? "Edicion" : "Creacion" }} de Docente</h5>
+
+    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+        <div class="p-formgrid grid">
+            <div
+                class="col-12"
+                (click)="fileInput.click()"
+                style="cursor: pointer"
+            >
+                <label for="username">Imagen</label>
+                <ng-container *ngIf="profileImage; else noImage">
+                    <img
+                        [src]="profileImage"
+                        alt="Profile Image"
+                        style="
+                            width: 100px;
+                            height: 100px;
+                            border-radius: 50%;
+                            margin-top: 10px;
+                        "
+                    />
+                </ng-container>
+                <ng-template #noImage>
+                    <i
+                        class="pi pi-user"
+                        style="
+                            font-size: 100px;
+                            color: #ccc;
+                            border-radius: 50%;
+                            margin-top: 10px;
+                        "
+                    ></i>
+                </ng-template>
+            </div>
+            <input
+                type="file"
+                #fileInput
+                accept="image/*"
+                style="display: none"
+                (change)="onFileSelect($event)"
+            />
+            <div class="field col">
+                <label for="username">Nombre</label>
+                <input
+                    pInputText
+                    id="name"
+                    aria-describedby="username-help"
+                    formControlName="name"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Apellido Paterno</label>
+                <input
+                    pInputText
+                    id="last_name"
+                    aria-describedby="username-help"
+                    formControlName="last_name"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Apellido Materno</label>
+                <input
+                    pInputText
+                    id="mother_last_name"
+                    aria-describedby="username-help"
+                    formControlName="mother_last_name"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Genero</label>
+                <input
+                    pInputText
+                    id="gender"
+                    aria-describedby="username-help"
+                    formControlName="gender"
+                />
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="username">Titulo Abreviado</label>
+                <input
+                    pInputText
+                    id="name"
+                    aria-describedby="username-help"
+                    formControlName="abbreviated_title"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">CURP</label>
+                <input
+                    pInputText
+                    id="last_name"
+                    aria-describedby="username-help"
+                    formControlName="curp"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">RFC</label>
+                <input
+                    pInputText
+                    id="mother_last_name"
+                    aria-describedby="username-help"
+                    formControlName="rfc"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Nombre de usuario</label>
+                <input
+                    pInputText
+                    id="gender"
+                    aria-describedby="username-help"
+                    formControlName="username"
+                />
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="username">Contraseña</label>
+                <input
+                    pInputText
+                    id="name"
+                    aria-describedby="username-help"
+                    formControlName="password"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Correo</label>
+                <input
+                    pInputText
+                    id="last_name"
+                    aria-describedby="username-help"
+                    formControlName="email"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Perfil</label>
+                <input
+                    pInputText
+                    id="mother_last_name"
+                    aria-describedby="username-help"
+                    formControlName="profile"
+                />
+            </div>
+            <div class="field col">
+                <label for="username">Departamento</label>
+                <input
+                    pInputText
+                    id="gender"
+                    aria-describedby="username-help"
+                    formControlName="departments_id"
+                />
+            </div>
+        </div>
+    </form>
+    <div class="flex-container">
+        <button
+            pButton
+            label="{{ isEdit ? 'Guardar Edicion' : 'Guardar' }}"
+            class="p-button-success"
+            icon="pi pi-database"
+            (click)="onSubmit()"
+            style="width: auto; max-width: 30%"
+        ></button>
+    </div>
+</div>

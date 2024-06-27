@@ -70,6 +70,23 @@ import { RouterModule } from '@angular/router';
             },
 
             {
+                path: 'periodos/new',
+                data: { breadcrumb: 'periodos' },
+                loadChildren: () =>
+                    import('./periodos/form/form.module').then(
+                        (m) => m.FormPeriodosModule
+                    ),
+            },
+            {
+                path: 'periodos/new/:id',
+                data: { breadcrumb: 'periodos' },
+                loadChildren: () =>
+                    import('./periodos/form/form.module').then(
+                        (m) => m.FormPeriodosModule
+                    ),
+            },
+
+            {
                 path: 'alumnos',
                 data: { breadcrumb: 'alumnos' },
                 loadChildren: () =>

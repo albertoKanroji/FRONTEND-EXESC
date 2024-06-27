@@ -8,6 +8,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
+import { NgxLoadingModule } from 'ngx-loading';
 @NgModule({
     imports: [
         CommonModule,
@@ -18,6 +19,7 @@ import { CardModule } from 'primeng/card';
         SplitButtonModule,
         ToggleButtonModule,
         TableModule,
+        NgxLoadingModule.forRoot({}),
     ],
     bootstrap: [GruposStudentComponent],
     declarations: [GruposStudentComponent],

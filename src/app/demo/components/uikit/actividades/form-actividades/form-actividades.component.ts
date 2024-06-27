@@ -23,6 +23,7 @@ export class FormActividadesComponent {
     uploadedFiles: any[] = [];
     base64Image: string | null = null;
     public loading = false;
+    selectedImage: string | ArrayBuffer | null = null;
     constructor(
         private route: ActivatedRoute,
         private actividadesService: ActividadesService,
@@ -108,6 +109,7 @@ export class FormActividadesComponent {
     }
 
     crearActividad(): void {
+        this.loading = true;
         if (this.actividadForm.valid) {
             const formValue = this.actividadForm.value;
             console.log(formValue);
@@ -120,18 +122,11 @@ export class FormActividadesComponent {
             };
             this.actividadesService.crearActividad(actividadData).subscribe({
                 next: (response) => {
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Éxito',
-                        detail: 'Actividad creada exitosamente',
-                    });
+                    this.loading = false;
+                    this.router.navigate(['/modules/actividades']);
                 },
                 error: (err) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: 'Error al crear la actividad',
-                    });
+                    this.loading = false;
                     console.error('Error al crear la actividad', err);
                 },
             });
@@ -202,11 +197,6 @@ export class FormActividadesComponent {
             this.base64Image = reader.result as string;
             this.actividadForm.patchValue({
                 image: this.base64Image,
-            });
-            this.messageService.add({
-                severity: 'info',
-                summary: 'Éxito',
-                detail: 'Archivo subido',
             });
         };
         reader.readAsDataURL(file);

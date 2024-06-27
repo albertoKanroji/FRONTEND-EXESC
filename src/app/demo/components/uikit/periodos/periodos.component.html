@@ -29,10 +29,10 @@
                 >
                     <button
                         pButton
-                        label="Clear"
+                        label="Nuevo Periodo"
                         class="p-button-outlined mb-2"
-                        icon="pi pi-filter-slash"
-                        (click)="clear(dt1)"
+                        icon="pi pi-plus-circle"
+                        [routerLink]="['/modules/periodos/new']"
                     ></button>
                     <span class="p-input-icon-left mb-2">
                         <i class="pi pi-search"></i>
