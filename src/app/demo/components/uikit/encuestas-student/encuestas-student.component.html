@@ -3,18 +3,25 @@
         <h3>{{ encuesta.title }}</h3>
         <p>{{ encuesta.description }}</p>
         <div class="button-group">
-            <button
+            <p-button
+                label="Responder"
+                icon="pi pi-arrow-right
+            "
+                severity="info"
+                iconPos="right"
                 (click)="responderEncuesta(encuesta.id)"
-                class="btn responder-btn"
-            >
-                Responder Encuesta
-            </button>
-            <button
-                (click)="recordarmeEnUnDia(encuesta.id)"
-                class="btn recordar-btn"
-            >
-                Recuérdame en 1 día
-            </button>
+            />
+
+            <p-button
+                label="Recuérdame en 1 día
+                "
+                icon="pi pi-calendar-plus
+
+            "
+                severity="warning"
+                iconPos="right"
+                (click)="responderEncuesta(encuesta.id)"
+            />
         </div>
     </div>
 </div>

@@ -142,6 +142,14 @@ import { RouterModule } from '@angular/router';
                     ),
             },
             {
+                path: 'alumno/encuesta/:id',
+                data: { breadcrumb: 'encuesta' },
+                loadChildren: () =>
+                    import('./encuestas-student/detalle/detalle.module').then(
+                        (m) => m.DetalleModule
+                    ),
+            },
+            {
                 path: 'informes',
                 data: { breadcrumb: 'informes' },
                 loadChildren: () =>

@@ -12,4 +12,8 @@ export class EncuestasService {
     getActividades(): Observable<any> {
         return this.http.get<any>(`${environment.apiUrl}/surveys/`);
     }
+    getEncuestaID(id: string): Observable<any> {
+        const url = `${environment.apiUrl}/surveys/${id}`; // Suponiendo que la API tiene un endpoint para obtener actividades por ID
+        return this.http.get<any>(url);
+    }
 }

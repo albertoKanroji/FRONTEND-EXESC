@@ -1,30 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EncuestasService } from 'src/app/services/encuestas/encuestas.service';
-import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-encuestas-student',
+    selector: 'app-detalle',
 
-    templateUrl: './encuestas-student.component.html',
-    styleUrl: './encuestas-student.component.scss',
+    templateUrl: './detalle.component.html',
+    styleUrl: './detalle.component.scss',
 })
-export class EncuestasStudentComponent {
-    encuestas: any[] = [];
+export class DetalleComponent implements OnInit {
+    encuestaId: string;
     loading = false;
+    encuesta: any[] = [];
+
     constructor(
-        private groupService: EncuestasService,
-        private toastr: ToastrService,
-        private router: Router
+        private route: ActivatedRoute,
+        private Encuesta: EncuestasService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
+        const id = +this.route.snapshot.paramMap.get('id');
         this.loading = true;
-        this.groupService.getActividades().subscribe({
+        this.Encuesta.getEncuestaID(id.toString()).subscribe({
             next: (response: any) => {
                 if (response.success) {
                     this.showSuccess();
-                    this.encuestas = response.data;
+                    this.encuesta = response.data;
                 } else {
                     this.showError();
                 }
@@ -38,16 +41,6 @@ export class EncuestasStudentComponent {
                 this.loading = false;
             },
         });
-    }
-
-    responderEncuesta(encuestaId: number): void {
-        console.log(`Responder encuesta ${encuestaId}`);
-        this.router.navigate([`modules/alumno/encuesta`, encuestaId]);
-    }
-
-    recordarmeEnUnDia(encuestaId: number): void {
-        // Lógica para recordar en un día
-        console.log(`Recordar encuesta ${encuestaId} en un día`);
     }
     showSuccess() {
         this.toastr.info('Completado', 'Datos Cargados');

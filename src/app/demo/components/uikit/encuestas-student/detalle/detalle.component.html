@@ -1,0 +1,14 @@
+<div *ngIf="encuesta">
+    <p-fieldset legend="{{ encuesta.title }}">
+        <p class="m-0">{{ encuesta.description }}</p>
+        <p-divider />
+        <div *ngFor="let question of encuesta.questions">
+            <h3>{{ question.question }}</h3>
+            <p-dropdown
+                [options]="question.options"
+                optionLabel="answer"
+                placeholder="Select an answer"
+            ></p-dropdown>
+        </div>
+    </p-fieldset>
+</div>
