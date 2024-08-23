@@ -74,6 +74,7 @@ export class LoginStudentComponent {
                 this.showSuccess();
                 this.loading = false;
                 this.authService.setToken(response.data.token);
+                this.authService.setUserProfile(response.data.cliente.profile);
                 console.log(response.data.cliente.image);
                 this.authService.setUserImage(
                     response.data.cliente.image,

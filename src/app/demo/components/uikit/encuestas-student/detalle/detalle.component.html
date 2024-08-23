@@ -5,10 +5,19 @@
         <div *ngFor="let question of encuesta.questions">
             <h3>{{ question.question }}</h3>
             <p-dropdown
-                [options]="question.options"
-                optionLabel="answer"
-                placeholder="Select an answer"
-            ></p-dropdown>
+            [options]="question.options"
+            optionLabel="answer"
+            placeholder="Elige una opción"
+            [(ngModel)]="question.selectedOption"
+            (onChange)="onOptionChange($event, question.id)"
+        ></p-dropdown>
         </div>
     </p-fieldset>
 </div>
+<button
+    pButton
+    label="Guardar Encuesta"
+    class="p-button-outlined mb-2"
+    icon="pi pi-plus-circle"
+    (click)="guardarEncuesta()"
+></button>

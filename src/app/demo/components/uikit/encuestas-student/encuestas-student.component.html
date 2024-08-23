@@ -1,16 +1,33 @@
 <div class="encuestas-container">
     <div *ngFor="let encuesta of encuestas" class="encuesta-card">
         <h3>{{ encuesta.title }}</h3>
-        <p>{{ encuesta.description }}</p>
+        <p *ngIf="encuesta.tipo == 'Maestro'">
+            {{ encuesta.description }} - Evaluación para alumnos del grupo
+          </p>
+          <p *ngIf="encuesta.tipo == 'Estudiante'">
+            {{ encuesta.description }} - Encuesta para el grupo
+          </p>
+
+
         <div class="button-group">
-            <p-button
-                label="Responder"
+
+
+            <p-button *ngIf="encuesta.tipo == 'Estudiante'"
+                label="Responder A"
                 icon="pi pi-arrow-right
             "
                 severity="info"
                 iconPos="right"
                 (click)="responderEncuesta(encuesta.id)"
             />
+            <p-button *ngIf="encuesta.tipo == 'Maestro'"
+            label="Responder P"
+            icon="pi pi-arrow-right
+        "
+            severity="info"
+            iconPos="right"
+            (click)="responderEncuestaDocente(encuesta.id)"
+        />
 
             <p-button
                 label="Recuérdame en 1 día

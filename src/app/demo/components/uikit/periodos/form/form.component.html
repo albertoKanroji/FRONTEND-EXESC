@@ -9,61 +9,68 @@
     <form [formGroup]="actividadForm">
         <div class="p-formgrid grid">
             <div class="field col">
-                <label for="username">Inicio de Periodo</label>
+                <label for="start_period">Inicio de Periodo</label>
                 <p-calendar
                     [iconDisplay]="'input'"
                     [showIcon]="true"
-                    inputId="icondisplay"
-                />
+                    inputId="start_period"
+                    formControlName="start_period"
+                ></p-calendar>
             </div>
             <div class="field col">
-                <label for="periodos">Fin de Periodo</label>
+                <label for="end_period">Fin de Periodo</label>
                 <p-calendar
                     [iconDisplay]="'input'"
                     [showIcon]="true"
-                    inputId="icondisplay"
-                />
-            </div>
-        </div>
-
-        <div class="p-formgrid grid">
-            <div class="field col">
-                <label for="username">Inicio de Inscripciones</label>
-                <p-calendar
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    inputId="icondisplay"
-                />
-            </div>
-            <div class="field col">
-                <label for="periodos">Fin de Inscripciones</label>
-                <p-calendar
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    inputId="icondisplay"
-                />
+                    inputId="end_period"
+                    formControlName="end_period"
+                ></p-calendar>
             </div>
         </div>
 
         <div class="p-formgrid grid">
             <div class="field col">
-                <label for="username">Inicio de Inscripciones Selectivos</label>
+                <label for="registration_start">Inicio de Inscripciones</label>
                 <p-calendar
                     [iconDisplay]="'input'"
                     [showIcon]="true"
-                    inputId="icondisplay"
-                />
+                    inputId="registration_start"
+                    formControlName="registration_start"
+                ></p-calendar>
             </div>
             <div class="field col">
-                <label for="periodos">Fin de Inscripciones Selectivos</label>
+                <label for="registration_end">Fin de Inscripciones</label>
                 <p-calendar
                     [iconDisplay]="'input'"
                     [showIcon]="true"
-                    inputId="icondisplay"
-                />
+                    inputId="registration_end"
+                    formControlName="registration_end"
+                ></p-calendar>
+            </div>
+        </div>
+
+        <div class="p-formgrid grid">
+            <div class="field col">
+                <label for="selectiv_start">Inicio de Inscripciones Selectivos</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="selectiv_start"
+                    formControlName="selectiv_start"
+                ></p-calendar>
+            </div>
+            <div class="field col">
+                <label for="selectiv_end">Fin de Inscripciones Selectivos</label>
+                <p-calendar
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                    inputId="selectiv_end"
+                    formControlName="selectiv_end"
+                ></p-calendar>
             </div>
         </div>
     </form>
+
     <div class="flex-container">
         <button
             pButton

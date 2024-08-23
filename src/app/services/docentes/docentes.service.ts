@@ -27,4 +27,8 @@ export class DocentesService {
     updateTeacher(id: string, data: any): Observable<any> {
         return this.http.put<any>(`${environment.apiUrl}/teachers/${id}`, data);
     }
+
+    getJefes(): Observable<any> {
+        return this.http.get<any>(`${environment.apiUrl}/jefes/`);
+    }
 }

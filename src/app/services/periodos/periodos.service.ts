@@ -44,4 +44,8 @@ export class PeriodosService {
             { periodId, filterBy, filterId }
         );
     }
+    createPeriodo(periodoData: any): Observable<any> {
+        return this.http.post<any>(`${environment.apiUrl}/periods/`, periodoData);
+    }
+
 }

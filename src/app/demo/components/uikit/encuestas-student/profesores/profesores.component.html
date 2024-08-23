@@ -1,0 +1,27 @@
+<div class="estudiantes-container">
+    <ul class="estudiantes-lista">
+        <li *ngFor="let estudiante of estudiantes" class="estudiante-item">
+            <div class="estudiante-info">
+                <h3>{{ estudiante.name }} {{ estudiante.last_name }} {{ estudiante.mother_last_name }}</h3>
+                <p><strong>Perfil:</strong> {{ estudiante.profile }}</p>
+                <p><strong>Control Number:</strong> {{ estudiante.control_number }}</p>
+            </div>
+            <div class="button-group">
+                <p-button
+                    label="Evaluar ahora"
+                    icon="pi pi-arrow-right"
+                    severity="info"
+                    iconPos="right"
+                    (click)="evaluarAlumno(estudiante.id)"
+                />
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+
+ <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>

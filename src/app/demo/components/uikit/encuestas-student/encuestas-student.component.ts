@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { EncuestasService } from 'src/app/services/encuestas/encuestas.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/login/admin/auth.service';
 
 @Component({
     selector: 'app-encuestas-student',
@@ -15,34 +16,63 @@ export class EncuestasStudentComponent {
     constructor(
         private groupService: EncuestasService,
         private toastr: ToastrService,
-        private router: Router
+        private router: Router,
+        private auth: AuthService
     ) {}
 
     ngOnInit(): void {
-        this.loading = true;
-        this.groupService.getActividades().subscribe({
-            next: (response: any) => {
-                if (response.success) {
-                    this.showSuccess();
-                    this.encuestas = response.data;
-                } else {
+        const userProfile = localStorage.getItem('profile');
+        console.log('User Profile:', userProfile);
+
+        if (userProfile === 'Profesor') {
+            this.groupService.getActividadesDocente().subscribe({
+                next: (response: any) => {
+                    if (response.success) {
+                        this.showSuccess();
+                        this.encuestas = response.data;
+                    } else {
+                        this.showError();
+                    }
+                },
+                error: (error) => {
+                    this.loading = false;
+                    console.error('Error fetching activities:', error);
                     this.showError();
-                }
-            },
-            error: (error) => {
-                this.loading = false;
-                console.error('Error fetching activities:', error);
-                this.showError();
-            },
-            complete: () => {
-                this.loading = false;
-            },
-        });
+                },
+                complete: () => {
+                    this.loading = false;
+                },
+            });
+        }
+        if (userProfile === 'Estudiante') {
+            this.groupService.getActividades().subscribe({
+                next: (response: any) => {
+                    if (response.success) {
+                        this.showSuccess();
+                        this.encuestas = response.data;
+                    } else {
+                        this.showError();
+                    }
+                },
+                error: (error) => {
+                    this.loading = false;
+                    console.error('Error fetching activities:', error);
+                    this.showError();
+                },
+                complete: () => {
+                    this.loading = false;
+                },
+            });
+        }
     }
 
     responderEncuesta(encuestaId: number): void {
         console.log(`Responder encuesta ${encuestaId}`);
         this.router.navigate([`modules/alumno/encuesta`, encuestaId]);
+    }
+    responderEncuestaDocente(encuestaId: number): void {
+        console.log(`Responder encuesta ${encuestaId}`);
+        this.router.navigate([`modules/profesor/encuesta`, encuestaId]);
     }
 
     recordarmeEnUnDia(encuestaId: number): void {

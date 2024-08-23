@@ -59,6 +59,7 @@ export class LoginTeacherComponent {
                 this.loading = false;
                 this.authService.setToken(response.data.token);
                 this.authService.setUserModulos(response.data.modulos);
+                this.authService.setUserProfile(response.data.cliente.profile);
                 localStorage.setItem(
                     'modulos',
                     JSON.stringify(response.data.modulos)
