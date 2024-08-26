@@ -1,40 +1,44 @@
 <div class="encuestas-container">
     <div *ngFor="let encuesta of encuestas" class="encuesta-card">
-        <h3>{{ encuesta.title }}</h3>
-        <p *ngIf="encuesta.tipo == 'Maestro'">
+        <div class="card-header">
+            <h3>{{ encuesta.title }}</h3>
+            <p-badge
+                *ngIf="encuesta.survey_completed.survey_completed"
+                value="Respondida"
+                severity="success"
+                class="status-badge">
+            </p-badge>
+            <p-badge
+                *ngIf="!encuesta.survey_completed.survey_completed"
+                value="Pendiente"
+                severity="danger"
+                class="status-badge">
+            </p-badge>
+        </div>
+        <p *ngIf="userProfile == 'Maestro'">
             {{ encuesta.description }} - Evaluación para alumnos del grupo
-          </p>
-          <p *ngIf="encuesta.tipo == 'Estudiante'">
+        </p>
+        <p *ngIf="userProfile == 'Estudiante'">
             {{ encuesta.description }} - Encuesta para el grupo
-          </p>
-
-
+        </p>
         <div class="button-group">
-
-
-            <p-button *ngIf="encuesta.tipo == 'Estudiante'"
+            <p-button *ngIf="userProfile === 'Estudiante' && !encuesta.survey_completed.survey_completed"
                 label="Responder A"
-                icon="pi pi-arrow-right
-            "
+                icon="pi pi-arrow-right"
                 severity="info"
                 iconPos="right"
                 (click)="responderEncuesta(encuesta.id)"
             />
-            <p-button *ngIf="encuesta.tipo == 'Maestro'"
-            label="Responder P"
-            icon="pi pi-arrow-right
-        "
-            severity="info"
-            iconPos="right"
-            (click)="responderEncuestaDocente(encuesta.id)"
-        />
-
-            <p-button
-                label="Recuérdame en 1 día
-                "
-                icon="pi pi-calendar-plus
-
-            "
+            <p-button *ngIf="userProfile == 'Maestro'"
+                label="Responder P"
+                icon="pi pi-arrow-right"
+                severity="info"
+                iconPos="right"
+                (click)="responderEncuestaDocente(encuesta.id)"
+            />
+            <p-button *ngIf="encuesta.survey_completed.survey_completed"
+                label="Generar Boleta"
+                icon="pi pi-calendar-plus"
                 severity="warning"
                 iconPos="right"
                 (click)="responderEncuesta(encuesta.id)"
@@ -42,6 +46,7 @@
         </div>
     </div>
 </div>
+
 
 <ngx-loading
     [show]="loading"

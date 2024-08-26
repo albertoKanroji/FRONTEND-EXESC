@@ -152,10 +152,27 @@
                         class="w-full p-3 text-xl"
                         [disabled]="loading"
                     ></button>
+
                     <div *ngIf="errorMessage" class="p-error mt-3">
                         {{ errorMessage }}
                     </div>
                 </form>
+
+                <!-- Agregar enlaces aquí -->
+                <div class="mt-5 text-center">
+                    <a
+                        routerLink="/auth/teacher"
+                        class="font-medium no-underline mr-5 cursor-pointer"
+                        style="color: var(--primary-color)"
+                        >Entrar como Docente</a
+                    >
+                    <a
+                        routerLink="/auth/student"
+                        class="font-medium no-underline cursor-pointer"
+                        style="color: var(--primary-color)"
+                        >Entrar como Alumno</a
+                    >
+                </div>
             </div>
         </div>
     </div>

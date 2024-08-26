@@ -1,31 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EncuestaResponse } from 'src/app/interfaces/encuesta';
 import { EncuestasService } from 'src/app/services/encuestas/encuestas.service';
 
 @Component({
-    selector: 'app-detalle',
+    selector: 'app-encuesta',
 
-    templateUrl: './detalle.component.html',
-    styleUrl: './detalle.component.scss',
+    templateUrl: './encuesta.component.html',
+    styleUrl: './encuesta.component.scss',
 })
-export class DetalleComponent implements OnInit {
+export class EncuestaComponent {
     encuestaId: string;
     loading = false;
     encuesta: any = {};
-
+op:any;
     selectedOptions: any[] = [];
     constructor(
         private route: ActivatedRoute,
         private Encuesta: EncuestasService,
         private toastr: ToastrService
     ) {}
-
     ngOnInit(): void {
-        const id = +this.route.snapshot.paramMap.get('id');
         this.loading = true;
-        this.Encuesta.getAlumnoQuestions().subscribe({
+        this.Encuesta.getDocenteQuestions().subscribe({
             next: (response: any) => {
                 if (response.success) {
                     this.showSuccess();
@@ -50,6 +47,7 @@ export class DetalleComponent implements OnInit {
             },
         });
     }
+
     showSuccess() {
         this.toastr.info('Completado', 'Datos Cargados');
     }
@@ -70,7 +68,7 @@ export class DetalleComponent implements OnInit {
 
 
     guardarEncuesta() {
-        const id_alumno = localStorage.getItem('id');
+        const id_teacher = localStorage.getItem('id');
         const id_encuesta = localStorage.getItem('id_encuesta');
         const id = +this.route.snapshot.paramMap.get('id');
         // Verificar que todas las preguntas tengan respuestas
@@ -87,10 +85,10 @@ export class DetalleComponent implements OnInit {
         //     return;
         // }
         const payload = {
-            surveys_id: id  ,
+            surveys_id: id_encuesta,
             responses: responses,
-            teachers_id: 1, // Ajustar según tu lógica
-            students_id: id_alumno  // Ajustar según tu lógica
+            teachers_id: id_teacher, // Ajustar según tu lógica
+            students_id: id  // Ajustar según tu lógica
         };
 
         console.log('Datos de la encuesta a enviar:', payload);
@@ -111,5 +109,4 @@ export class DetalleComponent implements OnInit {
             },
         });
     }
-
 }

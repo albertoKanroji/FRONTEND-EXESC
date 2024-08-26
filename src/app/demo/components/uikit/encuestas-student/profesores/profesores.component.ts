@@ -27,6 +27,7 @@ export class ProfesoresComponent {
         const userProfile = localStorage.getItem('profile');
         console.log('User Profile:', userProfile);
         const id = +this.route.snapshot.paramMap.get('id');
+        localStorage.setItem('id_encuesta', id.toString());
 
             this.groupService.getActividadesDocenteAlumnos(id).subscribe({
                 next: (response: any) => {
@@ -57,5 +58,9 @@ export class ProfesoresComponent {
     }
     showError() {
         this.toastr.error('Error', 'Ocurrio un Error');
+    }
+    evaluarAlumno(encuestaId: number): void {
+        console.log(`Responder encuesta ${encuestaId}`);
+        this.router.navigate([`modules/profesor/encuesta/alumno`, encuestaId]);
     }
 }

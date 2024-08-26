@@ -1,27 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EncuestasStudentRoutingModule } from './encuestas-studend-routing.module';
-import { EncuestasStudentComponent } from './encuestas-student.component';
+import { EncuestasProfesoresAlumoosRoutingModule } from './encuesta-routing.module';
+import { EncuestaComponent } from './encuesta.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TableModule } from 'primeng/table';
 import { NgxLoadingModule } from 'ngx-loading';
-import { BadgeModule } from 'primeng/badge';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     imports: [
         NgxLoadingModule.forRoot({}),
         CommonModule,
-        EncuestasStudentRoutingModule,
+        EncuestasProfesoresAlumoosRoutingModule,
         ButtonModule,
         RippleModule,
         SplitButtonModule,
         ToggleButtonModule,
         TableModule,
-        BadgeModule
+        DropdownModule
     ],
-    declarations: [EncuestasStudentComponent],
+    declarations: [EncuestaComponent],
 })
-export class EncuestasStudentModule {}
+export class EncuestasProfesoAlummosModule {}
